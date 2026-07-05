@@ -1,0 +1,16 @@
+{
+    "jobs": [
+        {
+            "name": "Marine",
+            "weight": 2
+        },
+        {
+            "name": "Sailor",
+            "weight": 17
+        },
+        {
+            "name": "Submariner",
+            "weight": 1
+        }
+    ]
+}

@@ -1,0 +1,32 @@
+{
+    "jobs": [
+        {
+            "name": "Doctor",
+            "weight": 3
+        },
+        {
+            "name": "Nurse",
+            "weight": 7
+        },
+        {
+            "name": "Orderly",
+            "weight": 4
+        },
+        {
+            "name": "Radiologist",
+            "weight": 2
+        },
+        {
+            "name": "Psychiatrist",
+            "weight": 2
+        },
+        {
+            "name": "Psychologist",
+            "weight": 1
+        },
+        {
+            "name": "Surgeon",
+            "weight": 1
+        }
+    ]
+}

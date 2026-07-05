@@ -1,0 +1,96 @@
+{
+    "jobs": [
+        {
+            "name": "Antique store",
+            "weight": 4
+        },
+        {
+            "name": "Auto Garage",
+            "weight": 4
+        },
+        {
+            "name": "Auto Wrecker",
+            "weight": 4
+        },
+        {
+            "name": "Bank",
+            "weight": 2
+        },
+        {
+            "name": "Bookseller",
+            "weight": 5
+        },
+        {
+            "name": "Clothing Store",
+            "weight": 5
+        },
+        {
+            "name": "Dry cleaner",
+            "weight": 4
+        },
+        {
+            "name": "Laundry",
+            "weight": 5
+        },
+        {
+            "name": "Exterminator",
+            "weight": 2
+        },
+        {
+            "name": "Farming supply store",
+            "weight": 6
+        },
+        {
+            "name": "Gas station",
+            "weight": 4
+        },
+        {
+            "name": "Grocery store",
+            "weight": 10
+        },
+        {
+            "name": "Hair salon or barbershop",
+            "weight": 3
+        },
+        {
+            "name": "Hardware store",
+            "weight": 4
+        },
+        {
+            "name": "Home goods store",
+            "weight": 2
+        },
+        {
+            "name": "Hotel or Spa",
+            "weight": 4
+        },
+        {
+            "name": "Jeweler",
+            "weight": 1
+        },
+        {
+            "name": "Music store",
+            "weight": 3
+        },
+        {
+            "name": "Police",
+            "weight": 4
+        },
+        {
+            "name": "Restaurant or Diner",
+            "weight": 4
+        },
+        {
+            "name": "Radio repair shop",
+            "weight": 2
+        },
+        {
+            "name": "Shipping company",
+            "weight": 4
+        },
+        {
+            "name": "Taxi Service",
+            "weight": 5
+        }
+    ]
+}

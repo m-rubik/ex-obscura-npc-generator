@@ -1,0 +1,20 @@
+{
+    "jobs": [
+        {
+            "name": "Engine Driver",
+            "weight": 2
+        },
+        {
+            "name": "Fire Chief",
+            "weight": 1
+        },
+        {
+            "name": "Firefighter",
+            "weight": 4
+        },
+        {
+            "name": "Pumpman",
+            "weight": 3
+        }
+    ]
+}

@@ -1,0 +1,80 @@
+{
+    "jobs": [
+        {
+            "name": "Architect",
+            "weight": 4
+        },
+        {
+            "name": "Artist",
+            "weight": 8
+        },
+        {
+            "name": "Aviator",
+            "weight": 1
+        },
+        {
+            "name": "Chemist",
+            "weight": 4
+        },
+        {
+            "name": "Clergyman",
+            "weight": 5
+        },
+        {
+            "name": "Court reporter",
+            "weight": 4
+        },
+        {
+            "name": "Draftsman",
+            "weight": 4
+        },
+        {
+            "name": "Electrician",
+            "weight": 4
+        },
+        {
+            "name": "Jounalism",
+            "weight": 19
+        },
+        {
+            "name": "Lawyer",
+            "weight": 4
+        },
+        {
+            "name": "Lineman",
+            "weight": 4
+        },
+        {
+            "name": "Mechanical engineer",
+            "weight": 4
+        },
+        {
+            "name": "Medical",
+            "weight": 9
+        },
+        {
+            "name": "Private photographer",
+            "weight": 2
+        },
+        {
+            "name": "Railroad",
+            "weight": 12
+        },
+        {
+            "name": "School teacher",
+            "weight": 4
+        },
+        {
+            "name": "Telegraph operator",
+            "weight": 3
+        },
+        {
+            "name": "Telephone operator",
+            "weight": 3
+        },
+        {
+            "name": "Veterinarian",
+            "weight": 2
+        }
+    ]
+}

@@ -1,0 +1,52 @@
+{
+    "jobs": [
+        {
+            "name": "Cotton picker",
+            "weight": 8
+        },
+        {
+            "name": "Draft animal handler",
+            "weight": 4
+        },
+        {
+            "name": "Fruit picker",
+            "weight": 5
+        },
+        {
+            "name": "Sharecropper",
+            "weight": 16
+        },
+        {
+            "name": "Steam tractor driver",
+            "weight": 2
+        },
+        {
+            "name": "Vegetable harvester",
+            "weight": 20
+        },
+        {
+            "name": "Carding wool",
+            "weight": 7
+        },
+        {
+            "name": "Cotton ginning",
+            "weight": 8
+        },
+        {
+            "name": "Renderer",
+            "weight": 5
+        },
+        {
+            "name": "Tanner",
+            "weight": 5
+        },
+        {
+            "name": "Teamster",
+            "weight": 10
+        },
+        {
+            "name": "Textile weaving",
+            "weight": 11
+        }
+    ]
+}

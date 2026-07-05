@@ -1,0 +1,28 @@
+{
+    "jobs": [
+        {
+            "name": "Author",
+            "weight": 4
+        },
+        {
+            "name": "Fashion designer",
+            "weight": 3
+        },
+        {
+            "name": "Painter",
+            "weight": 4
+        },
+        {
+            "name": "Playwright",
+            "weight": 4
+        },
+        {
+            "name": "Poet",
+            "weight": 3
+        },
+        {
+            "name": "Sculptor",
+            "weight": 2
+        }
+    ]
+}

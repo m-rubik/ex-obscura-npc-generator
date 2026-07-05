@@ -1,0 +1,16 @@
+{
+    "jobs": [
+        {
+            "name": "Occult",
+            "weight": 1
+        },
+        {
+            "name": "Retailer",
+            "weight": 5
+        },
+        {
+            "name": "Used",
+            "weight": 4
+        }
+    ]
+}

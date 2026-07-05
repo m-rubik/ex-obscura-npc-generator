@@ -1,0 +1,20 @@
+{
+    "jobs": [
+        {
+            "name": "Airforce",
+            "weight": 1
+        },
+        {
+            "name": "Artillery",
+            "weight": 4
+        },
+        {
+            "name": "Cavalry",
+            "weight": 2
+        },
+        {
+            "name": "Infantry",
+            "weight": 13
+        }
+    ]
+}

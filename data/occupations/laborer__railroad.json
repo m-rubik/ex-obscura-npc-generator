@@ -1,0 +1,36 @@
+{
+    "jobs": [
+        {
+            "name": "Boilerman",
+            "weight": 1
+        },
+        {
+            "name": "Brakeman",
+            "weight": 2
+        },
+        {
+            "name": "Bull",
+            "weight": 5
+        },
+        {
+            "name": "Platelayer",
+            "weight": 2
+        },
+        {
+            "name": "Redcap boy",
+            "weight": 1
+        },
+        {
+            "name": "Section boss",
+            "weight": 1
+        },
+        {
+            "name": "Section gang",
+            "weight": 7
+        },
+        {
+            "name": "Signalman",
+            "weight": 1
+        }
+    ]
+}

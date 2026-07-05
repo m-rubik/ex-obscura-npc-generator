@@ -1,0 +1,32 @@
+{
+    "jobs": [
+        {
+            "name": "Boss Miner (Roll again on this table, ignore 1-2)",
+            "weight": 2
+        },
+        {
+            "name": "Demolitionist",
+            "weight": 1
+        },
+        {
+            "name": "Coal",
+            "weight": 42
+        },
+        {
+            "name": "Iron",
+            "weight": 40
+        },
+        {
+            "name": "Oil",
+            "weight": 10
+        },
+        {
+            "name": "Other metal",
+            "weight": 3
+        },
+        {
+            "name": "Prospector",
+            "weight": 2
+        }
+    ]
+}

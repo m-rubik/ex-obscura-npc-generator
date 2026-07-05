@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+  npc-generator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ex-obscura-npc:latest
+    working_dir: /work
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/work:cached
+    command: ["sleep", "infinity"]

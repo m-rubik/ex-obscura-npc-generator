@@ -1,0 +1,7 @@
+/work/build/CMakeFiles/server.dir
+/work/build/CMakeFiles/test.dir
+/work/build/CMakeFiles/edit_cache.dir
+/work/build/CMakeFiles/rebuild_cache.dir
+/work/build/_deps/nlohmann_json-build/CMakeFiles/test.dir
+/work/build/_deps/nlohmann_json-build/CMakeFiles/edit_cache.dir
+/work/build/_deps/nlohmann_json-build/CMakeFiles/rebuild_cache.dir

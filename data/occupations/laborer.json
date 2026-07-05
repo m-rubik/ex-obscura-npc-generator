@@ -1,0 +1,32 @@
+{
+    "jobs": [
+        {
+            "name": "Construction worker",
+            "weight": 20
+        },
+        {
+            "name": "Lumber",
+            "weight": 15
+        },
+        {
+            "name": "Manufacturing",
+            "weight": 20
+        },
+        {
+            "name": "Meatpacker",
+            "weight": 15
+        },
+        {
+            "name": "Merchant Seaman",
+            "weight": 5
+        },
+        {
+            "name": "Miner",
+            "weight": 10
+        },
+        {
+            "name": "Railroad",
+            "weight": 15
+        }
+    ]
+}

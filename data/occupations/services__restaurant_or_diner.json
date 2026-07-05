@@ -1,0 +1,32 @@
+{
+    "jobs": [
+        {
+            "name": "Chef",
+            "weight": 2
+        },
+        {
+            "name": "Cook",
+            "weight": 4
+        },
+        {
+            "name": "Busser/Dishwasher",
+            "weight": 4
+        },
+        {
+            "name": "Host",
+            "weight": 2
+        },
+        {
+            "name": "Maitre d",
+            "weight": 1
+        },
+        {
+            "name": "Soda jerk",
+            "weight": 3
+        },
+        {
+            "name": "Waiter/waitress",
+            "weight": 4
+        }
+    ]
+}

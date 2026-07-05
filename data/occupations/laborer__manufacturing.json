@@ -1,0 +1,28 @@
+{
+    "jobs": [
+        {
+            "name": "Appliance assembly",
+            "weight": 3
+        },
+        {
+            "name": "Automobile assembly",
+            "weight": 2
+        },
+        {
+            "name": "Foundry worker",
+            "weight": 5
+        },
+        {
+            "name": "Metal casting/forging",
+            "weight": 5
+        },
+        {
+            "name": "Welder",
+            "weight": 4
+        },
+        {
+            "name": "Foreman",
+            "weight": 1
+        }
+    ]
+}

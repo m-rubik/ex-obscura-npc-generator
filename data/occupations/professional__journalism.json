@@ -1,0 +1,28 @@
+{
+    "jobs": [
+        {
+            "name": "Editor",
+            "weight": 1
+        },
+        {
+            "name": "Photographer",
+            "weight": 5
+        },
+        {
+            "name": "Printer",
+            "weight": 2
+        },
+        {
+            "name": "Reporter",
+            "weight": 8
+        },
+        {
+            "name": "Typesetter",
+            "weight": 2
+        },
+        {
+            "name": "Typist",
+            "weight": 2
+        }
+    ]
+}

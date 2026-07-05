@@ -1,0 +1,54 @@
+{
+  "categories": [
+    {
+      "name": "Academic",
+      "weight": 7,
+      "table": "academic.json"
+    },
+    {
+      "name": "Agriculture",
+      "weight": 28,
+      "table": "agriculture.json"
+    },
+    {
+      "name": "Armed Services",
+      "weight": 2,
+      "table": "armed_services.json"
+    },
+    {
+      "name": "Clerical",
+      "weight": 3,
+      "table": "clerical.json"
+    },
+    {
+      "name": "Entertainer",
+      "weight": 5,
+      "table": "entertainer.json"
+    },
+    {
+      "name": "Factory",
+      "weight": 10,
+      "table": "factory.json"
+    },
+    {
+      "name": "Laborer",
+      "weight": 10,
+      "table": "laborer.json"
+    },
+    {
+      "name": "Professional",
+      "weight": 15,
+      "table": "professional.json"
+    },
+    {
+      "name": "Services",
+      "weight": 17,
+      "table": "services.json"
+    },
+    {
+      "name": "Underworld",
+      "weight": 3,
+      "table": "underworld.json"
+    }
+  ]
+}

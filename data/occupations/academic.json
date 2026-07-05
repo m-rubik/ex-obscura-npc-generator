@@ -1,0 +1,20 @@
+{
+    "jobs": [
+        {
+            "name": "Librarian",
+            "weight": 3
+        },
+        {
+            "name": "College Professor",
+            "weight": 3
+        },
+        {
+            "name": "Research Assistant",
+            "weight": 3
+        },
+        {
+            "name": "College student",
+            "weight": 11
+        }
+    ]
+}

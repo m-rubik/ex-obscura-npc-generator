@@ -1,0 +1,24 @@
+{
+    "jobs": [
+        {
+            "name": "Chief engineer",
+            "weight": 1
+        },
+        {
+            "name": "Conductor",
+            "weight": 3
+        },
+        {
+            "name": "Freight Conductor",
+            "weight": 2
+        },
+        {
+            "name": "Secondman",
+            "weight": 1
+        },
+        {
+            "name": "Porter",
+            "weight": 3
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "jobs": [
+        {
+            "name": "Foundry",
+            "weight": 6
+        },
+        {
+            "name": "Power Plant",
+            "weight": 4
+        }
+    ]
+}

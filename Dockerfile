@@ -1,0 +1,6 @@
+FROM ubuntu:22.04
+RUN apt-get update && apt-get install -y build-essential cmake git ca-certificates && rm -rf /var/lib/apt/lists/*
+WORKDIR /work
+COPY . /work
+EXPOSE 8080
+CMD ["sleep", "infinity"]

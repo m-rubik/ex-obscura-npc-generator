@@ -1,0 +1,20 @@
+{
+    "jobs": [
+        {
+            "name": "Army",
+            "weight": 60
+        },
+        {
+            "name": "Navy",
+            "weight": 30
+        },
+        {
+            "name": "NCO",
+            "weight": 6
+        },
+        {
+            "name": "Officer",
+            "weight": 4
+        }
+    ]
+}

@@ -1,0 +1,52 @@
+{
+    "jobs": [
+        {
+            "name": "Accountant",
+            "weight": 10
+        },
+        {
+            "name": "Administrative assistant",
+            "weight": 5
+        },
+        {
+            "name": "Banker",
+            "weight": 4
+        },
+        {
+            "name": "Editor",
+            "weight": 8
+        },
+        {
+            "name": "File Clerk",
+            "weight": 8
+        },
+        {
+            "name": "Investment broker",
+            "weight": 1
+        },
+        {
+            "name": "Loan officer",
+            "weight": 4
+        },
+        {
+            "name": "Manager",
+            "weight": 10
+        },
+        {
+            "name": "Receptionist",
+            "weight": 15
+        },
+        {
+            "name": "Secretary",
+            "weight": 15
+        },
+        {
+            "name": "Teller",
+            "weight": 10
+        },
+        {
+            "name": "Typist",
+            "weight": 10
+        }
+    ]
+}

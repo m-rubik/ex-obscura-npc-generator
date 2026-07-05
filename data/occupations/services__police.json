@@ -1,0 +1,24 @@
+{
+    "jobs": [
+        {
+            "name": "Beat cop",
+            "weight": 10
+        },
+        {
+            "name": "Desk sergeant",
+            "weight": 2
+        },
+        {
+            "name": "Detective",
+            "weight": 2
+        },
+        {
+            "name": "Motor patrol",
+            "weight": 4
+        },
+        {
+            "name": "Patrol sergeant",
+            "weight": 1
+        }
+    ]
+}

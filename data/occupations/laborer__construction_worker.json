@@ -1,0 +1,44 @@
+{
+    "jobs": [
+        {
+            "name": "Bricklayer",
+            "weight": 12
+        },
+        {
+            "name": "Bucket & wheel excavator",
+            "weight": 6
+        },
+        {
+            "name": "Foreman",
+            "weight": 10
+        },
+        {
+            "name": "Framer",
+            "weight": 17
+        },
+        {
+            "name": "Gantry crane operator",
+            "weight": 5
+        },
+        {
+            "name": "Mason",
+            "weight": 3
+        },
+        {
+            "name": "Painter",
+            "weight": 17
+        },
+        {
+            "name": "Plasterer",
+            "weight": 10
+        },
+        {
+            "name": "Steam crane",
+            "weight": 5
+        },
+        {
+            "name": "Riveter",
+            "weight": 15
+        }
+    ]
+}

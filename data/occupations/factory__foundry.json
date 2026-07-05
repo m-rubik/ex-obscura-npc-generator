@@ -1,0 +1,32 @@
+{
+    "jobs": [
+        {
+            "name": "Copper",
+            "weight": 10
+        },
+        {
+            "name": "Iron",
+            "weight": 35
+        },
+        {
+            "name": "Steel",
+            "weight": 35
+        },
+        {
+            "name": "Nickle",
+            "weight": 3
+        },
+        {
+            "name": "Tin",
+            "weight": 5
+        },
+        {
+            "name": "Rare",
+            "weight": 6
+        },
+        {
+            "name": "Line boss",
+            "weight": 6
+        }
+    ]
+}

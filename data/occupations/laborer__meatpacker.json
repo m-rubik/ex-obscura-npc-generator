@@ -1,0 +1,36 @@
+{
+    "jobs": [
+        {
+            "name": "Line manager",
+            "weight": 1
+        },
+        {
+            "name": "Pacer",
+            "weight": 3
+        },
+        {
+            "name": "Deboner",
+            "weight": 2
+        },
+        {
+            "name": "Dismemberer",
+            "weight": 9
+        },
+        {
+            "name": "Meat cutter (1 of 151 other different jobs)",
+            "weight": 70
+        },
+        {
+            "name": "Slaughterer",
+            "weight": 5
+        },
+        {
+            "name": "Shackler",
+            "weight": 8
+        },
+        {
+            "name": "Skinner",
+            "weight": 2
+        }
+    ]
+}

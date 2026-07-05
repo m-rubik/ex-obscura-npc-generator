@@ -1,0 +1,92 @@
+{
+    "jobs": [
+        {
+            "name": "Bankrobber",
+            "weight": 3
+        },
+        {
+            "name": "Bookie",
+            "weight": 5
+        },
+        {
+            "name": "Bootlegger",
+            "weight": 11
+        },
+        {
+            "name": "Boss",
+            "weight": 1
+        },
+        {
+            "name": "Cat burglar",
+            "weight": 4
+        },
+        {
+            "name": "Grifter",
+            "weight": 6
+        },
+        {
+            "name": "Loan Shark",
+            "weight": 2
+        },
+        {
+            "name": "Mugger",
+            "weight": 8
+        },
+        {
+            "name": "Pickpocket",
+            "weight": 6
+        },
+        {
+            "name": "Smuggler",
+            "weight": 9
+        },
+        {
+            "name": "Prostitute",
+            "weight": 15
+        },
+        {
+            "name": "Safecracker",
+            "weight": 1
+        },
+        {
+            "name": "Speakeasy",
+            "weight": 10
+        },
+        {
+            "name": "Bartender",
+            "weight": 2
+        },
+        {
+            "name": "Bouncer",
+            "weight": 5
+        },
+        {
+            "name": "Cigar Girl",
+            "weight": 2
+        },
+        {
+            "name": "Dancer",
+            "weight": 4
+        },
+        {
+            "name": "Stripper",
+            "weight": 2
+        },
+        {
+            "name": "Waitress",
+            "weight": 5
+        },
+        {
+            "name": "Thug",
+            "weight": 9
+        },
+        {
+            "name": "Triggerman",
+            "weight": 4
+        },
+        {
+            "name": "Vagrant",
+            "weight": 6
+        }
+    ]
+}

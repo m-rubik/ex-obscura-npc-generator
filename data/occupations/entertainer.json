@@ -1,0 +1,52 @@
+{
+    "jobs": [
+        {
+            "name": "Acrobat",
+            "weight": 5
+        },
+        {
+            "name": "Busker",
+            "weight": 7
+        },
+        {
+            "name": "Dancer",
+            "weight": 8
+        },
+        {
+            "name": "Camera operator",
+            "weight": 4
+        },
+        {
+            "name": "Movie actor",
+            "weight": 2
+        },
+        {
+            "name": "Movie crew",
+            "weight": 10
+        },
+        {
+            "name": "Musician",
+            "weight": 9
+        },
+        {
+            "name": "Singer",
+            "weight": 15
+        },
+        {
+            "name": "Stage actor",
+            "weight": 10
+        },
+        {
+            "name": "Stage crew",
+            "weight": 10
+        },
+        {
+            "name": "Stripper",
+            "weight": 10
+        },
+        {
+            "name": "Vaudeville theater",
+            "weight": 10
+        }
+    ]
+}
