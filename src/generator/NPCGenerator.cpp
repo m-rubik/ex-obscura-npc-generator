@@ -56,6 +56,48 @@ NPC NPCGenerator::generate(GenerationContext& ctx) {
         }
     }
 
+    // Race generation
+    if (ctx.dataRoot.contains("races")) {
+        const auto &races = ctx.dataRoot["races"];
+        ProbabilityMap raceMap;
+        std::unordered_map<std::string, std::unordered_map<std::string, int>> subraceWeights;
+
+        for (auto it = races.begin(); it != races.end(); ++it) {
+            const std::string raceName = it.key();
+            const auto &entry = it.value();
+            if (entry.contains("weight") && entry["weight"].is_number_integer()) {
+                raceMap.add(raceName, entry["weight"].get<int>());
+            }
+            if (entry.contains("subraces") && entry["subraces"].is_object()) {
+                std::unordered_map<std::string, int> subs;
+                for (auto subIt = entry["subraces"].begin(); subIt != entry["subraces"].end(); ++subIt) {
+                    subs[subIt.key()] = subIt.value().get<int>();
+                }
+                subraceWeights[raceName] = subs;
+            }
+        }
+
+        if (!raceMap.weights().empty()) {
+            std::string chosenRace = raceMap.pick(ctx.rng);
+            ctx.npc.race = chosenRace;
+            if (subraceWeights.count(chosenRace)) {
+                ProbabilityMap subraceMap;
+                for (const auto &sub : subraceWeights[chosenRace]) {
+                    subraceMap.add(sub.first, sub.second);
+                }
+                if (!subraceMap.weights().empty()) {
+                    ctx.npc.subrace = subraceMap.pick(ctx.rng);
+                }
+            }
+            ctx.generationLog.push_back(std::string("Race: ") + ctx.npc.race + (ctx.npc.subrace.empty() ? "" : (" (" + ctx.npc.subrace + ")")));
+        }
+    }
+
+    // Sanity points: 55 + 2d10
+    std::uniform_int_distribution<int> d10(1, 10);
+    ctx.npc.sanityPoints = 55 + d10(ctx.rng) + d10(ctx.rng);
+    ctx.generationLog.push_back(std::string("Sanity Points: ") + std::to_string(ctx.npc.sanityPoints));
+
     // Personality and secret generation
     if (ctx.dataRoot.contains("personalities")) {
         const auto &pers = ctx.dataRoot["personalities"];

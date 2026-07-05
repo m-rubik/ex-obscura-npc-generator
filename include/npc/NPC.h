@@ -16,6 +16,9 @@ struct NPC {
     std::string occupation;
     int age = 0;
     std::string gender;
+    std::string race;
+    std::string subrace;
+    int sanityPoints = 0;
     std::vector<ClothingItem> clothing;
     std::string clothingStyle;
     std::string personality;

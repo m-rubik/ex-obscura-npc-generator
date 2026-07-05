@@ -39,10 +39,21 @@ static std::string resolveOccupationTable(const std::string& base) {
     return {};
 }
 
-static void send_response(int client_fd, const std::string& body) {
+static void send_json_response(int client_fd, const std::string& body) {
     std::ostringstream oss;
     oss << "HTTP/1.1 200 OK\r\n";
     oss << "Content-Type: application/json\r\n";
+    oss << "Content-Length: " << body.size() << "\r\n";
+    oss << "Connection: close\r\n\r\n";
+    oss << body;
+    std::string resp = oss.str();
+    send(client_fd, resp.c_str(), resp.size(), 0);
+}
+
+static void send_html_response(int client_fd, const std::string& body) {
+    std::ostringstream oss;
+    oss << "HTTP/1.1 200 OK\r\n";
+    oss << "Content-Type: text/html; charset=utf-8\r\n";
     oss << "Content-Length: " << body.size() << "\r\n";
     oss << "Connection: close\r\n\r\n";
     oss << body;
@@ -59,6 +70,7 @@ int main(int argc, char** argv) {
     ctx.dataRoot["clothing"]["items"] = json::array();
     ctx.dataRoot["personalities"] = loadData("data/personalities.json");
     ctx.dataRoot["secrets"] = loadData("data/secrets.json");
+    ctx.dataRoot["races"] = loadData("data/races.json");
 
     auto men = loadData("data/clothing/men.json");
     auto women = loadData("data/clothing/women.json");
@@ -113,13 +125,18 @@ int main(int argc, char** argv) {
         std::string method, path, ver;
         rs >> method >> path >> ver;
 
-        if (method == "GET" && path == "/npc/random") {
+        if (method == "GET" && path == "/") {
+            std::ifstream htmlFile("frontend/index.html");
+            std::ostringstream htmlStream;
+            htmlStream << htmlFile.rdbuf();
+            send_html_response(client, htmlStream.str());
+        } else if (method == "GET" && path == "/npc/random") {
             int seed = ctx.world.seed ? ctx.world.seed : std::random_device{}();
             GenerationContext localCtx(seed);
             localCtx.dataRoot = ctx.dataRoot;
             NPCGenerator gen; NPC npc = gen.generate(localCtx);
-            json out = { {"name", npc.name}, {"occupation", npc.occupation}, {"age", npc.age}, {"gender", npc.gender}, {"clothing_style", npc.clothingStyle}, {"personality", npc.personality}, {"secret", npc.secret}, {"log", localCtx.generationLog} };
-            send_response(client, out.dump(2));
+            json out = { {"name", npc.name}, {"occupation", npc.occupation}, {"age", npc.age}, {"gender", npc.gender}, {"race", npc.race}, {"subrace", npc.subrace}, {"sanity_points", npc.sanityPoints}, {"clothing_style", npc.clothingStyle}, {"personality", npc.personality}, {"secret", npc.secret}, {"log", localCtx.generationLog} };
+            send_json_response(client, out.dump(2));
         } else if (method == "POST" && path == "/npc") {
             // find body (after \r\n\r\n)
             auto pos = req.find("\r\n\r\n");
@@ -134,15 +151,15 @@ int main(int argc, char** argv) {
                 }
                 localCtx.dataRoot = ctx.dataRoot;
                 NPCGenerator gen; NPC npc = gen.generate(localCtx);
-                json out = { {"name", npc.name}, {"occupation", npc.occupation}, {"age", npc.age}, {"gender", npc.gender}, {"clothing_style", npc.clothingStyle}, {"personality", npc.personality}, {"secret", npc.secret}, {"log", localCtx.generationLog} };
-                send_response(client, out.dump(2));
+                json out = { {"name", npc.name}, {"occupation", npc.occupation}, {"age", npc.age}, {"gender", npc.gender}, {"race", npc.race}, {"subrace", npc.subrace}, {"sanity_points", npc.sanityPoints}, {"clothing_style", npc.clothingStyle}, {"personality", npc.personality}, {"secret", npc.secret}, {"log", localCtx.generationLog} };
+                send_json_response(client, out.dump(2));
             } catch (...) {
                 std::string err = "{\"error\":\"invalid json\"}";
-                send_response(client, err);
+                send_json_response(client, err);
             }
         } else {
             std::string notfound = "{\"error\":\"not found\"}";
-            send_response(client, notfound);
+            send_json_response(client, notfound);
         }
         close(client);
     }

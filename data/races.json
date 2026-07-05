@@ -1,0 +1,150 @@
+{
+  "human": {
+    "weight": 60,
+    "subraces": {
+      "variant": 40,
+      "standard": 60
+    }
+  },
+
+  "elf": {
+    "weight": 8,
+    "subraces": {
+      "dark": 3,
+      "eladrin_dmg": 1,
+      "eladrin_mtof": 2,
+      "high": 4,
+      "pallid": 2,
+      "shadar_kai": 2,
+      "sea": 1,
+      "wood": 5
+    }
+  },
+
+  "dwarf": {
+    "weight": 7,
+    "subraces": {
+      "duergar": 2,
+      "hill": 4,
+      "mountain": 4
+    }
+  },
+
+  "halfling": {
+    "weight": 6,
+    "subraces": {
+      "ghostwise": 2,
+      "lightfoot": 5,
+      "lotusden": 1,
+      "stout": 4
+    }
+  },
+
+  "gnome": {
+    "weight": 5,
+    "subraces": {
+      "deep": 2,
+      "forest": 4,
+      "rock": 4
+    }
+  },
+
+  "half_elf": {
+    "weight": 5,
+    "subraces": {
+      "aquatic": 1,
+      "drow": 1,
+      "moon_sun": 2,
+      "wood": 2,
+      "standard": 6
+    }
+  },
+
+  "half_orc": {
+    "weight": 4,
+    "subraces": {
+      "standard": 10
+    }
+  },
+
+  "tiefling": {
+    "weight": 4,
+    "subraces": {
+      "asmodeus": 2,
+      "baalzebul": 1,
+      "dispater": 1,
+      "fierna": 1,
+      "glasya": 1,
+      "levistus": 1,
+      "mammon": 1,
+      "mephistopheles": 1,
+      "standard": 4,
+      "variant": 3,
+      "zariel": 1
+    }
+  },
+
+  "dragonborn": {
+    "weight": 3,
+    "subraces": {
+      "chromatic": 4,
+      "gem": 2,
+      "metallic": 3,
+      "ravenite": 1
+    }
+  },
+
+  "goblin": { "weight": 3, "subraces": { "standard": 10 } },
+  "orc": { "weight": 3, "subraces": { "volos": 5, "eberron": 5 } },
+  "tabaxi": { "weight": 3, "subraces": { "standard": 10 } },
+  "warforged": { "weight": 3, "subraces": { "standard": 10 } },
+  "goliath": { "weight": 2, "subraces": { "standard": 10 } },
+  "kenku": { "weight": 2, "subraces": { "standard": 10 } },
+  "kobold": { "weight": 2, "subraces": { "standard": 10 } },
+  "hobgoblin": { "weight": 2, "subraces": { "standard": 10 } },
+  "lizardfolk": { "weight": 2, "subraces": { "standard": 10 } },
+  "minotaur": { "weight": 2, "subraces": { "standard": 10 } },
+  "triton": { "weight": 2, "subraces": { "standard": 10 } },
+  "aasimar": {
+    "weight": 2,
+    "subraces": {
+      "dmg": 1,
+      "fallen": 2,
+      "protector": 2,
+      "scourge": 1
+    }
+  },
+  "shifter": {
+    "weight": 2,
+    "subraces": {
+      "beasthide": 3,
+      "longtooth": 3,
+      "swiftstride": 2,
+      "wildhunt": 2
+    }
+  },
+
+  "aarakocra": { "weight": 1, "subraces": { "standard": 10 } },
+  "centaur": { "weight": 1, "subraces": { "standard": 10 } },
+  "changeling": { "weight": 1, "subraces": { "standard": 10 } },
+  "custom_lineage": { "weight": 1, "subraces": { "standard": 10 } },
+  "fairy": { "weight": 1, "subraces": { "standard": 10 } },
+  "firbolg": { "weight": 1, "subraces": { "standard": 10 } },
+  "grung": { "weight": 1, "subraces": { "standard": 10 } },
+  "harengon": { "weight": 1, "subraces": { "standard": 10 } },
+  "kalashtar": { "weight": 1, "subraces": { "standard": 10 } },
+  "leonin": { "weight": 1, "subraces": { "standard": 10 } },
+  "locathah": { "weight": 1, "subraces": { "standard": 10 } },
+  "loxodon": { "weight": 1, "subraces": { "standard": 10 } },
+  "owlin": { "weight": 1, "subraces": { "standard": 10 } },
+  "satyr": { "weight": 1, "subraces": { "standard": 10 } },
+  "simic_hybrid": { "weight": 1, "subraces": { "standard": 10 } },
+  "vedalken": { "weight": 1, "subraces": { "standard": 10 } },
+  "verdan": { "weight": 1, "subraces": { "standard": 10 } },
+  "yuan_ti": { "weight": 1, "subraces": { "standard": 10 } },
+
+  "duergar": { "weight": 1, "subraces": { "standard": 10 } },
+
+  "tcho_tcho": { "weight": 1, "subraces": { "standard": 10 } },
+  "dreamlands_cat": { "weight": 1, "subraces": { "standard": 10 } }
+}
