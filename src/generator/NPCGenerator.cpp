@@ -3,6 +3,8 @@
 #include "rules/ProbabilityMap.h"
 #include <nlohmann/json.hpp>
 #include <random>
+#include <vector>
+#include <algorithm>
 
 namespace exob {
 
@@ -15,6 +17,44 @@ NPC NPCGenerator::generate(GenerationContext& ctx) {
     std::uniform_int_distribution<int> ageDist(18, 70);
     ctx.npc.age = ageDist(ctx.rng);
     ctx.generationLog.push_back(std::string("Age: ") + std::to_string(ctx.npc.age));
+
+    // Clothing generation
+    if (ctx.dataRoot.contains("clothing") && ctx.dataRoot["clothing"].contains("items")) {
+        const auto &items = ctx.dataRoot["clothing"]["items"];
+        if (items.is_array() && !items.empty()) {
+            std::vector<std::string> chosenItems;
+            std::uniform_int_distribution<size_t> itemDist(0, items.size() - 1);
+            for (int i = 0; i < 3; ++i) {
+                const auto &selected = items[itemDist(ctx.rng)];
+                std::string name = selected.value("name", "");
+                if (!name.empty()) {
+                    chosenItems.push_back(name);
+                }
+            }
+            if (!chosenItems.empty()) {
+                ctx.npc.clothing.clear();
+                for (const auto &itemName : chosenItems) {
+                    ctx.npc.clothing.push_back({itemName, "", "", ""});
+                }
+                ctx.npc.clothingStyle = chosenItems[0];
+                if (chosenItems.size() > 1) {
+                    ctx.npc.clothingStyle += ", " + chosenItems[1];
+                }
+                if (chosenItems.size() > 2) {
+                    ctx.npc.clothingStyle += " and " + chosenItems[2];
+                }
+                ctx.generationLog.push_back(std::string("Clothing: ") + ctx.npc.clothingStyle);
+            }
+        }
+    }
+
+    if (ctx.dataRoot.contains("clothing") && ctx.dataRoot["clothing"].contains("details")) {
+        const auto &details = ctx.dataRoot["clothing"]["details"];
+        if (details.contains("materials") && details["materials"].is_array()) {
+            std::uniform_int_distribution<size_t> matDist(0, details["materials"].size() - 1);
+            ctx.npc.clothingStyle += " in " + details["materials"][matDist(ctx.rng)].get<std::string>();
+        }
+    }
 
     // Occupation - select a main category first, then roll a job from the category's subtable
     if (ctx.dataRoot.contains("occupations") && ctx.dataRoot["occupations"].contains("categories")) {

@@ -72,3 +72,5 @@ docker compose up --build
 
 - The container uses the repository source mounted into `/work`.
 - If port `8080` is already in use, change the port mapping in `docker-compose.yml`.
+- Names from https://github.com/aruljohn/popular-baby-names/tree/master/1890
+- Surnames from https://sites.rootsweb.com/~arwhite2/1890tax.html

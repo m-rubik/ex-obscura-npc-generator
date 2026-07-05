@@ -55,6 +55,22 @@ int main(int argc, char** argv) {
     ctx.dataRoot["names"]["male_first"] = loadData("data/names/male_first.json");
     ctx.dataRoot["names"]["female_first"] = loadData("data/names/female_first.json");
     ctx.dataRoot["names"]["surnames"] = loadData("data/names/surnames.json");
+    ctx.dataRoot["clothing"]["details"] = loadData("data/clothing/details.json");
+    ctx.dataRoot["clothing"]["items"] = json::array();
+
+    auto men = loadData("data/clothing/men.json");
+    auto women = loadData("data/clothing/women.json");
+    if (men.contains("men") && men["men"].is_array()) {
+        for (const auto &item : men["men"]) {
+            ctx.dataRoot["clothing"]["items"].push_back(item);
+        }
+    }
+    if (women.contains("women") && women["women"].is_array()) {
+        for (const auto &item : women["women"]) {
+            ctx.dataRoot["clothing"]["items"].push_back(item);
+        }
+    }
+
     ctx.dataRoot["occupations"] = loadData("data/occupations/occupations.json");
     if (ctx.dataRoot["occupations"].contains("categories")) {
         for (auto &category : ctx.dataRoot["occupations"]["categories"]) {
@@ -100,7 +116,7 @@ int main(int argc, char** argv) {
             GenerationContext localCtx(seed);
             localCtx.dataRoot = ctx.dataRoot;
             NPCGenerator gen; NPC npc = gen.generate(localCtx);
-            json out = { {"name", npc.name}, {"occupation", npc.occupation}, {"age", npc.age}, {"log", localCtx.generationLog} };
+            json out = { {"name", npc.name}, {"occupation", npc.occupation}, {"age", npc.age}, {"gender", npc.gender}, {"clothing_style", npc.clothingStyle}, {"log", localCtx.generationLog} };
             send_response(client, out.dump(2));
         } else if (method == "POST" && path == "/npc") {
             // find body (after \r\n\r\n)
@@ -116,7 +132,7 @@ int main(int argc, char** argv) {
                 }
                 localCtx.dataRoot = ctx.dataRoot;
                 NPCGenerator gen; NPC npc = gen.generate(localCtx);
-                json out = { {"name", npc.name}, {"occupation", npc.occupation}, {"age", npc.age}, {"log", localCtx.generationLog} };
+                json out = { {"name", npc.name}, {"occupation", npc.occupation}, {"age", npc.age}, {"gender", npc.gender}, {"clothing_style", npc.clothingStyle}, {"log", localCtx.generationLog} };
                 send_response(client, out.dump(2));
             } catch (...) {
                 std::string err = "{\"error\":\"invalid json\"}";

@@ -1,0 +1,97 @@
+{
+  "base_neutrals": [
+    "black",
+    "white",
+    "ivory",
+    "cream",
+    "grey",
+    "charcoal",
+    "beige",
+    "taupe",
+    "brown",
+    "dark brown"
+  ],
+
+  "menswear_core": [
+    "navy",
+    "midnight blue",
+    "dark green",
+    "olive",
+    "burgundy",
+    "maroon",
+    "tobacco brown",
+    "pinstripe grey",
+    "steel grey"
+  ],
+
+  "womenswear_core": [
+    "champagne",
+    "soft rose",
+    "lavender",
+    "powder blue",
+    "emerald green",
+    "deep red",
+    "midnight black",
+    "cream silk",
+    "pearl white"
+  ],
+
+  "accent_colors": [
+    "gold",
+    "silver",
+    "brass",
+    "copper",
+    "mahogany",
+    "faded crimson",
+    "dusty blue",
+    "muted green",
+    "aged bronze"
+  ],
+
+  "muted_tones": [
+    "faded blue",
+    "washed out green",
+    "dusty brown",
+    "pale yellow",
+    "smoke grey",
+    "sun-bleached beige",
+    "rusted red"
+  ],
+
+  "rich_colors": [
+    "deep emerald",
+    "royal purple",
+    "crimson red",
+    "sapphire blue",
+    "jet black",
+    "wine red",
+    "hunter green"
+  ],
+
+  "wear_states": [
+    "new",
+    "clean",
+    "pressed",
+    "worn",
+    "faded",
+    "creased",
+    "patched",
+    "mud-stained",
+    "rain-dampened",
+    "oil-stained",
+    "sun-faded",
+    "dust-covered"
+  ],
+
+  "materials": [
+    "wool",
+    "cotton",
+    "linen",
+    "silk",
+    "leather",
+    "tweed",
+    "felt",
+    "velvet",
+    "satin"
+  ]
+}

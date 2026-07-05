@@ -20,6 +20,7 @@ void IdentityGenerator::generate(GenerationContext& ctx) {
     std::string first = firstList[fd(ctx.rng)];
     std::string sur = surnames[sd(ctx.rng)];
     ctx.npc.name = first + " " + sur;
+    ctx.npc.gender = male ? "male" : "female";
     ctx.generationLog.push_back("Identity: chosen name " + ctx.npc.name);
 }
 
