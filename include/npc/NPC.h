@@ -18,6 +18,8 @@ struct NPC {
     std::string gender;
     std::vector<ClothingItem> clothing;
     std::string clothingStyle;
+    std::string personality;
+    std::string secret;
 };
 
 } // namespace exob

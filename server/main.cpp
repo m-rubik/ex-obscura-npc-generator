@@ -57,6 +57,8 @@ int main(int argc, char** argv) {
     ctx.dataRoot["names"]["surnames"] = loadData("data/names/surnames.json");
     ctx.dataRoot["clothing"]["details"] = loadData("data/clothing/details.json");
     ctx.dataRoot["clothing"]["items"] = json::array();
+    ctx.dataRoot["personalities"] = loadData("data/personalities.json");
+    ctx.dataRoot["secrets"] = loadData("data/secrets.json");
 
     auto men = loadData("data/clothing/men.json");
     auto women = loadData("data/clothing/women.json");
@@ -116,7 +118,7 @@ int main(int argc, char** argv) {
             GenerationContext localCtx(seed);
             localCtx.dataRoot = ctx.dataRoot;
             NPCGenerator gen; NPC npc = gen.generate(localCtx);
-            json out = { {"name", npc.name}, {"occupation", npc.occupation}, {"age", npc.age}, {"gender", npc.gender}, {"clothing_style", npc.clothingStyle}, {"log", localCtx.generationLog} };
+            json out = { {"name", npc.name}, {"occupation", npc.occupation}, {"age", npc.age}, {"gender", npc.gender}, {"clothing_style", npc.clothingStyle}, {"personality", npc.personality}, {"secret", npc.secret}, {"log", localCtx.generationLog} };
             send_response(client, out.dump(2));
         } else if (method == "POST" && path == "/npc") {
             // find body (after \r\n\r\n)
@@ -132,7 +134,7 @@ int main(int argc, char** argv) {
                 }
                 localCtx.dataRoot = ctx.dataRoot;
                 NPCGenerator gen; NPC npc = gen.generate(localCtx);
-                json out = { {"name", npc.name}, {"occupation", npc.occupation}, {"age", npc.age}, {"gender", npc.gender}, {"clothing_style", npc.clothingStyle}, {"log", localCtx.generationLog} };
+                json out = { {"name", npc.name}, {"occupation", npc.occupation}, {"age", npc.age}, {"gender", npc.gender}, {"clothing_style", npc.clothingStyle}, {"personality", npc.personality}, {"secret", npc.secret}, {"log", localCtx.generationLog} };
                 send_response(client, out.dump(2));
             } catch (...) {
                 std::string err = "{\"error\":\"invalid json\"}";

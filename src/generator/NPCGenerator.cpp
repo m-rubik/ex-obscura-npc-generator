@@ -56,6 +56,48 @@ NPC NPCGenerator::generate(GenerationContext& ctx) {
         }
     }
 
+    // Personality and secret generation
+    if (ctx.dataRoot.contains("personalities")) {
+        const auto &pers = ctx.dataRoot["personalities"];
+        std::vector<std::string> selectedTraits;
+        const std::vector<std::string> traitKeys = {"core_traits", "social_traits", "emotional_traits", "mental_traits", "behavioral_traits"};
+
+        for (const auto &key : traitKeys) {
+            if (pers.contains(key) && pers[key].is_array() && !pers[key].empty()) {
+                std::uniform_int_distribution<size_t> traitDist(0, pers[key].size() - 1);
+                selectedTraits.push_back(pers[key][traitDist(ctx.rng)].get<std::string>());
+            }
+        }
+
+        if (!selectedTraits.empty()) {
+            ctx.npc.personality.clear();
+            for (size_t i = 0; i < selectedTraits.size(); ++i) {
+                if (i > 0) {
+                    ctx.npc.personality += ", ";
+                }
+                ctx.npc.personality += selectedTraits[i];
+            }
+            ctx.generationLog.push_back(std::string("Personality: ") + ctx.npc.personality);
+        }
+    }
+
+    if (ctx.dataRoot.contains("secrets")) {
+        const auto &secrets = ctx.dataRoot["secrets"];
+        std::vector<std::string> secretPools;
+        for (const auto &key : {"harmless_secrets", "social_secrets", "criminal_secrets", "occult_secrets", "identity_secrets"}) {
+            if (secrets.contains(key) && secrets[key].is_array()) {
+                for (const auto &secret : secrets[key]) {
+                    secretPools.push_back(secret.get<std::string>());
+                }
+            }
+        }
+        if (!secretPools.empty()) {
+            std::uniform_int_distribution<size_t> secretDist(0, secretPools.size() - 1);
+            ctx.npc.secret = secretPools[secretDist(ctx.rng)];
+            ctx.generationLog.push_back(std::string("Secret: ") + ctx.npc.secret);
+        }
+    }
+
     // Occupation - select a main category first, then roll a job from the category's subtable
     if (ctx.dataRoot.contains("occupations") && ctx.dataRoot["occupations"].contains("categories")) {
         ProbabilityMap categoryMap;

@@ -1,0 +1,118 @@
+{
+  "core_traits": [
+    "calm",
+    "anxious",
+    "curious",
+    "cautious",
+    "reckless",
+    "methodical",
+    "impulsive",
+    "stoic",
+    "friendly",
+    "cold",
+    "reserved",
+    "outgoing",
+    "observant",
+    "distracted",
+    "pessimistic",
+    "optimistic",
+    "pragmatic",
+    "idealistic",
+    "superstitious",
+    "skeptical"
+  ],
+
+  "social_traits": [
+    "charismatic",
+    "awkward",
+    "authoritative",
+    "submissive",
+    "manipulative",
+    "polite",
+    "rude",
+    "secretive",
+    "honest",
+    "deceptive",
+    "gregarious",
+    "isolated",
+    "well-liked",
+    "feared",
+    "respected"
+  ],
+
+  "emotional_traits": [
+    "empathetic",
+    "apathetic",
+    "volatile",
+    "stable",
+    "melancholic",
+    "cheerful",
+    "irritable",
+    "numb",
+    "sentimental",
+    "detached",
+    "paranoid",
+    "trusting",
+    "jealous",
+    "forgiving"
+  ],
+
+  "mental_traits": [
+    "logical",
+    "obsessive",
+    "focused",
+    "scatterbrained",
+    "analytical",
+    "forgetful",
+    "brilliant",
+    "slow-witted",
+    "paranoid",
+    "insightful",
+    "delusional",
+    "hypervigilant",
+    "rigid thinker",
+    "creative thinker"
+  ],
+
+  "behavioral_traits": [
+    "chain smoker",
+    "heavy drinker",
+    "tea drinker",
+    "workaholic",
+    "night owl",
+    "early riser",
+    "clean freak",
+    "messy",
+    "ritualistic",
+    "superstitious habits",
+    "fidgety",
+    "still and quiet",
+    "paces constantly",
+    "avoids eye contact"
+  ],
+
+  "stress_reactions": [
+    "freezes under pressure",
+    "becomes aggressive",
+    "laughs nervously",
+    "withdraws inward",
+    "talks excessively",
+    "goes silent",
+    "becomes hyperfocused",
+    "panics easily",
+    "detaches emotionally",
+    "acts recklessly"
+  ],
+
+  "occult_sensitivity": [
+    "none",
+    "dismissive of occult",
+    "unaware of occult forces",
+    "uneasy around symbols",
+    "sensitive to unseen patterns",
+    "drawn to occult texts",
+    "frequent visions",
+    "disturbingly receptive",
+    "unstable perception of reality"
+  ]
+}
