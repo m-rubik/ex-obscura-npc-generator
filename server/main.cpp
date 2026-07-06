@@ -135,7 +135,25 @@ int main(int argc, char** argv) {
             GenerationContext localCtx(seed);
             localCtx.dataRoot = ctx.dataRoot;
             NPCGenerator gen; NPC npc = gen.generate(localCtx);
-            json out = { {"name", npc.name}, {"occupation", npc.occupation}, {"age", npc.age}, {"gender", npc.gender}, {"race", npc.race}, {"subrace", npc.subrace}, {"sanity_points", npc.sanityPoints}, {"clothing_style", npc.clothingStyle}, {"personality", npc.personality}, {"secret", npc.secret}, {"log", localCtx.generationLog} };
+            json personalityObj = {
+                {"core_trait", npc.personality.coreTrait},
+                {"social_behavior", npc.personality.socialBehavior},
+                {"emotional_regulation", npc.personality.emotionalRegulation},
+                {"cognitive_tendencies", npc.personality.cognitiveTendencies},
+                {"behavioral_note", npc.personality.behavioralNote},
+                {"stress_reaction", npc.personality.stressReaction}
+            };
+            json out = { 
+                {"name", npc.name}, 
+                {"occupation", npc.occupation}, 
+                {"age", npc.age}, {"gender", npc.gender}, 
+                {"race", npc.race}, {"subrace", npc.subrace}, 
+                {"sanity_points", npc.sanityPoints}, 
+                {"clothing_style", npc.clothingStyle}, 
+                {"personality", personalityObj}, 
+                {"occultSensitivity", npc.occultSensitivity}, 
+                {"secret", npc.secret}, 
+                {"log", localCtx.generationLog} };
             send_json_response(client, out.dump(2));
         } else if (method == "POST" && path == "/npc") {
             // find body (after \r\n\r\n)
@@ -151,7 +169,28 @@ int main(int argc, char** argv) {
                 }
                 localCtx.dataRoot = ctx.dataRoot;
                 NPCGenerator gen; NPC npc = gen.generate(localCtx);
-                json out = { {"name", npc.name}, {"occupation", npc.occupation}, {"age", npc.age}, {"gender", npc.gender}, {"race", npc.race}, {"subrace", npc.subrace}, {"sanity_points", npc.sanityPoints}, {"clothing_style", npc.clothingStyle}, {"personality", npc.personality}, {"secret", npc.secret}, {"log", localCtx.generationLog} };
+                json personalityObj = {
+                    {"core_trait", npc.personality.coreTrait},
+                    {"social_behavior", npc.personality.socialBehavior},
+                    {"emotional_regulation", npc.personality.emotionalRegulation},
+                    {"cognitive_tendencies", npc.personality.cognitiveTendencies},
+                    {"behavioral_note", npc.personality.behavioralNote},
+                    {"stress_reaction", npc.personality.stressReaction}
+                };
+                json out = { 
+                    {"name", npc.name}, 
+                    {"occupation", npc.occupation}, 
+                    {"age", npc.age}, 
+                    {"gender", npc.gender}, 
+                    {"race", npc.race}, 
+                    {"subrace", npc.subrace}, 
+                    {"sanity_points", npc.sanityPoints}, 
+                    {"clothing_style", npc.clothingStyle}, 
+                    {"personality", personalityObj}, 
+                    {"occultSensitivity", npc.occultSensitivity},
+                    {"secret", npc.secret}, 
+                    {"log", localCtx.generationLog} 
+                };
                 send_json_response(client, out.dump(2));
             } catch (...) {
                 std::string err = "{\"error\":\"invalid json\"}";

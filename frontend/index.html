@@ -101,6 +101,25 @@
         font-size: 0.75rem;
         letter-spacing: 0.1em;
       }
+      .personality-detail {
+        margin: 12px 0 0 0;
+        padding: 12px;
+        background: rgba(94, 21, 21, 0.08);
+        border-left: 3px solid var(--red);
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+      .personality-detail-row {
+        margin: 6px 0;
+      }
+      .personality-category {
+        font-weight: 700;
+        color: var(--red);
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        margin-right: 8px;
+      }
       @media (max-width: 800px) {
         .grid { grid-template-columns: 1fr; }
       }
@@ -130,7 +149,35 @@
             <li><strong>Occupation:</strong> <span id="npcOccupation">—</span></li>
             <li><strong>Gender:</strong> <span id="npcGender">—</span></li>
             <li><strong>Clothing:</strong> <span id="npcClothing">—</span></li>
-            <li><strong>Personality:</strong> <span id="npcPersonality">—</span></li>
+            <li><strong>Personality:</strong>
+              <div class="personality-detail">
+                <div class="personality-detail-row">
+                  <span class="personality-category">Core Trait:</span>
+                  <span id="npcPersonalityCoreTrait">—</span>
+                </div>
+                <div class="personality-detail-row">
+                  <span class="personality-category">Social Behavior:</span>
+                  <span id="npcPersonalitySocialBehavior">—</span>
+                </div>
+                <div class="personality-detail-row">
+                  <span class="personality-category">Emotional Regulation:</span>
+                  <span id="npcPersonalityEmotionalRegulation">—</span>
+                </div>
+                <div class="personality-detail-row">
+                  <span class="personality-category">Cognitive Tendencies:</span>
+                  <span id="npcPersonalityCognitiveTendencies">—</span>
+                </div>
+                <div class="personality-detail-row">
+                  <span class="personality-category">Behavioral Note:</span>
+                  <span id="npcPersonalityBehavioralNote">—</span>
+                </div>
+                <div class="personality-detail-row">
+                  <span class="personality-category">Stress Reaction:</span>
+                  <span id="npcPersonalityStressReaction">—</span>
+                </div>
+              </div>
+            </li>
+            <li><strong>Occult Sensitivity:</strong> <span id="npcOccultSensitivity">—</span></li>
             <li><strong>Secret:</strong> <span id="npcSecret">—</span></li>
           </ul>
           <div class="stamp">Filed by the Department of Strange Persons</div>
@@ -155,7 +202,13 @@
       const npcOccupation = document.getElementById('npcOccupation');
       const npcGender = document.getElementById('npcGender');
       const npcClothing = document.getElementById('npcClothing');
-      const npcPersonality = document.getElementById('npcPersonality');
+      const npcPersonalityCoreTrait = document.getElementById('npcPersonalityCoreTrait');
+      const npcPersonalitySocialBehavior = document.getElementById('npcPersonalitySocialBehavior');
+      const npcPersonalityEmotionalRegulation = document.getElementById('npcPersonalityEmotionalRegulation');
+      const npcPersonalityCognitiveTendencies = document.getElementById('npcPersonalityCognitiveTendencies');
+      const npcPersonalityBehavioralNote = document.getElementById('npcPersonalityBehavioralNote');
+      const npcPersonalityStressReaction = document.getElementById('npcPersonalityStressReaction');
+      const npcOccultSensitivity = document.getElementById('npcOccultSensitivity');
       const npcSecret = document.getElementById('npcSecret');
       const log = document.getElementById('log');
 
@@ -172,7 +225,26 @@
           npcOccupation.textContent = data.occupation || '—';
           npcGender.textContent = data.gender || '—';
           npcClothing.textContent = data.clothing_style || '—';
-          npcPersonality.textContent = data.personality || '—';
+          
+          // Handle structured personality object
+          if (data.personality && typeof data.personality === 'object') {
+            npcPersonalityCoreTrait.textContent = data.personality.core_trait || '—';
+            npcPersonalitySocialBehavior.textContent = data.personality.social_behavior || '—';
+            npcPersonalityEmotionalRegulation.textContent = data.personality.emotional_regulation || '—';
+            npcPersonalityCognitiveTendencies.textContent = data.personality.cognitive_tendencies || '—';
+            npcPersonalityBehavioralNote.textContent = data.personality.behavioral_note || '—';
+            npcPersonalityStressReaction.textContent = data.personality.stress_reaction || '—';
+          } else {
+            // Fallback for older format
+            npcPersonalityCoreTrait.textContent = data.personality || '—';
+            npcPersonalitySocialBehavior.textContent = '—';
+            npcPersonalityEmotionalRegulation.textContent = '—';
+            npcPersonalityCognitiveTendencies.textContent = '—';
+            npcPersonalityBehavioralNote.textContent = '—';
+            npcPersonalityStressReaction.textContent = '—';
+          }
+          
+          npcOccultSensitivity.textContent = data.occultSensitivity || '—';
           npcSecret.textContent = data.secret || '—';
           log.innerHTML = '<strong>Generation trace:</strong><br>' + (data.log || []).join('<br>');
         } catch (err) {

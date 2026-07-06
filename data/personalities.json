@@ -105,14 +105,14 @@
   ],
 
   "occult_sensitivity": [
-    "none",
-    "dismissive of occult",
-    "unaware of occult forces",
-    "uneasy around symbols",
-    "sensitive to unseen patterns",
-    "drawn to occult texts",
-    "frequent visions",
-    "disturbingly receptive",
-    "unstable perception of reality"
+    {"name": "none", "weight": 75},
+    {"name": "dismissive of occult", "weight": 10},
+    {"name": "unaware of occult forces", "weight": 10},
+    {"name": "uneasy around symbols", "weight": 5},
+    {"name": "sensitive to unseen patterns", "weight": 5},
+    {"name": "drawn to occult texts", "weight": 5},
+    {"name": "frequent visions", "weight": 3},
+    {"name": "disturbingly receptive", "weight": 2},
+    {"name": "unstable perception of reality", "weight": 1}
   ]
 }

@@ -10,9 +10,6 @@ cmake-build-*/
 *.a
 *.lib
 
-# Compiled binaries
-server
-
 # IDE/editor files
 .vscode/
 .idea/

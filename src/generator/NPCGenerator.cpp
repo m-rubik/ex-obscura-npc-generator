@@ -106,25 +106,53 @@ void NPCGenerator::generatePersonality(GenerationContext& ctx) {
     // Personality generation
     if (ctx.dataRoot.contains("personalities")) {
         const auto &pers = ctx.dataRoot["personalities"];
-        std::vector<std::string> selectedTraits;
-        const std::vector<std::string> traitKeys = {"core_traits", "social_traits", "emotional_traits", "mental_traits", "behavioral_traits"};
-
-        for (const auto &key : traitKeys) {
-            if (pers.contains(key) && pers[key].is_array() && !pers[key].empty()) {
-                std::uniform_int_distribution<size_t> traitDist(0, pers[key].size() - 1);
-                selectedTraits.push_back(pers[key][traitDist(ctx.rng)].get<std::string>());
-            }
+        
+        // Map trait keys to personality struct fields
+        if (pers.contains("core_traits") && pers["core_traits"].is_array() && !pers["core_traits"].empty()) {
+            std::uniform_int_distribution<size_t> traitDist(0, pers["core_traits"].size() - 1);
+            ctx.npc.personality.coreTrait = pers["core_traits"][traitDist(ctx.rng)].get<std::string>();
         }
+        
+        if (pers.contains("social_traits") && pers["social_traits"].is_array() && !pers["social_traits"].empty()) {
+            std::uniform_int_distribution<size_t> traitDist(0, pers["social_traits"].size() - 1);
+            ctx.npc.personality.socialBehavior = pers["social_traits"][traitDist(ctx.rng)].get<std::string>();
+        }
+        
+        if (pers.contains("emotional_traits") && pers["emotional_traits"].is_array() && !pers["emotional_traits"].empty()) {
+            std::uniform_int_distribution<size_t> traitDist(0, pers["emotional_traits"].size() - 1);
+            ctx.npc.personality.emotionalRegulation = pers["emotional_traits"][traitDist(ctx.rng)].get<std::string>();
+        }
+        
+        if (pers.contains("mental_traits") && pers["mental_traits"].is_array() && !pers["mental_traits"].empty()) {
+            std::uniform_int_distribution<size_t> traitDist(0, pers["mental_traits"].size() - 1);
+            ctx.npc.personality.cognitiveTendencies = pers["mental_traits"][traitDist(ctx.rng)].get<std::string>();
+        }
+        
+        if (pers.contains("behavioral_traits") && pers["behavioral_traits"].is_array() && !pers["behavioral_traits"].empty()) {
+            std::uniform_int_distribution<size_t> traitDist(0, pers["behavioral_traits"].size() - 1);
+            ctx.npc.personality.behavioralNote = pers["behavioral_traits"][traitDist(ctx.rng)].get<std::string>();
+        }
+        
+        if (pers.contains("stress_reactions") && pers["stress_reactions"].is_array() && !pers["stress_reactions"].empty()) {
+            std::uniform_int_distribution<size_t> traitDist(0, pers["stress_reactions"].size() - 1);
+            ctx.npc.personality.stressReaction = pers["stress_reactions"][traitDist(ctx.rng)].get<std::string>();
+        }
+        
+        ctx.generationLog.push_back(std::string("Personality: Core=") + ctx.npc.personality.coreTrait + 
+                                    " Social=" + ctx.npc.personality.socialBehavior + 
+                                    " Emotional=" + ctx.npc.personality.emotionalRegulation);
 
-        if (!selectedTraits.empty()) {
-            ctx.npc.personality.clear();
-            for (size_t i = 0; i < selectedTraits.size(); ++i) {
-                if (i > 0) {
-                    ctx.npc.personality += ", ";
+        if (pers.contains("occult_sensitivity") && pers["occult_sensitivity"].is_array() && !pers["occult_sensitivity"].empty()) {
+            ProbabilityMap occultSensitivityMap;
+            for (const auto &entry : pers["occult_sensitivity"]) {
+                if (entry.contains("name") && entry.contains("weight")) {
+                    occultSensitivityMap.add(entry["name"].get<std::string>(), entry["weight"].get<int>());
                 }
-                ctx.npc.personality += selectedTraits[i];
             }
-            ctx.generationLog.push_back(std::string("Personality: ") + ctx.npc.personality);
+            if (!occultSensitivityMap.weights().empty()) {
+                ctx.npc.occultSensitivity = occultSensitivityMap.pick(ctx.rng);
+                ctx.generationLog.push_back(std::string("Occult Sensitivity: ") + ctx.npc.occultSensitivity);
+            }
         }
     }
 }
@@ -211,7 +239,20 @@ void NPCGenerator::generateOccupation(GenerationContext& ctx) {
 }
 
 NPC NPCGenerator::generate(GenerationContext& ctx) {
-    // Identity
+    /*
+    IDEAS:
+    - Friends
+    - Family
+    - Enemies
+    - (other relationships?)
+    - Bio (health, illness, condition, etc)
+    - Stats?
+    - Notable physical things like tattoos
+    - Wealth (tied to occupation & background?)
+    - Items of note (pocketwatch, weapon, etc)
+    
+    */
+    
     IdentityGenerator idg;
     idg.generate(ctx);
 

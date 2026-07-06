@@ -11,6 +11,15 @@ struct ClothingItem {
     std::string notes;
 };
 
+struct Personality {
+    std::string coreTrait;
+    std::string socialBehavior;
+    std::string emotionalRegulation;
+    std::string cognitiveTendencies;
+    std::string behavioralNote;
+    std::string stressReaction;
+};
+
 struct NPC {
     std::string name;
     std::string occupation;
@@ -21,7 +30,8 @@ struct NPC {
     int sanityPoints = 0;
     std::vector<ClothingItem> clothing;
     std::string clothingStyle;
-    std::string personality;
+    Personality personality;
+    std::string occultSensitivity;
     std::string secret;
 };
 
