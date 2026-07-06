@@ -43,6 +43,9 @@ static void send_json_response(int client_fd, const std::string& body) {
     std::ostringstream oss;
     oss << "HTTP/1.1 200 OK\r\n";
     oss << "Content-Type: application/json\r\n";
+    oss << "Access-Control-Allow-Origin: *\r\n";
+    oss << "Access-Control-Allow-Methods: GET, POST, OPTIONS\r\n";
+    oss << "Access-Control-Allow-Headers: Content-Type\r\n";
     oss << "Content-Length: " << body.size() << "\r\n";
     oss << "Connection: close\r\n\r\n";
     oss << body;
@@ -157,6 +160,63 @@ int main(int argc, char** argv) {
                 std::string err = "{\"error\":\"invalid json\"}";
                 send_json_response(client, err);
             }
+        } else if (method == "GET" && path == "/world") {
+            json worldOut = json::object();
+            json npcsArray = json::array();
+            std::vector<std::string> npcIds;
+            
+            // Generate 5 NPCs for the world
+            for (int i = 0; i < 5; ++i) {
+                int seed = ctx.world.seed ? ctx.world.seed + i : std::random_device{}() + i;
+                GenerationContext localCtx(seed);
+                localCtx.dataRoot = ctx.dataRoot;
+                NPCGenerator gen;
+                NPC npc = gen.generate(localCtx);
+                
+                std::string npcId = "npc-" + std::to_string(i);
+                npcIds.push_back(npcId);
+                
+                json npcJson = {
+                    {"id", npcId},
+                    {"name", npc.name},
+                    {"occupation", npc.occupation},
+                    {"age", npc.age},
+                    {"gender", npc.gender},
+                    {"race", npc.race},
+                    {"subrace", npc.subrace},
+                    {"sanity_points", npc.sanityPoints},
+                    {"clothing_style", npc.clothingStyle},
+                    {"personality", npc.personality},
+                    {"secret", npc.secret}
+                };
+                npcsArray.push_back(npcJson);
+            }
+            
+            // Generate some relationships between NPCs
+            json relArray = json::array();
+            std::vector<std::string> relTypes = {"employer", "friend", "family", "member_of", "owes_money"};
+            std::mt19937 rng(ctx.world.seed ? ctx.world.seed : std::random_device{}());
+            std::uniform_int_distribution<size_t> npcDist(0, npcIds.size() - 1);
+            std::uniform_int_distribution<size_t> relDist(0, relTypes.size() - 1);
+            
+            for (int i = 0; i < 4; ++i) {
+                size_t from = npcDist(rng);
+                size_t to = npcDist(rng);
+                if (from != to) {
+                    std::string relType = relTypes[relDist(rng)];
+                    json rel = {
+                        {"from", npcIds[from]},
+                        {"to", npcIds[to]},
+                        {"type", relType},
+                        {"label", relType}
+                    };
+                    relArray.push_back(rel);
+                }
+            }
+            
+            worldOut["npcs"] = npcsArray;
+            worldOut["relationships"] = relArray;
+            send_json_response(client, worldOut.dump(2));
         } else {
             std::string notfound = "{\"error\":\"not found\"}";
             send_json_response(client, notfound);

@@ -26,3 +26,6 @@ Thumbs.db
 
 # Docker/local runtime
 *.log
+
+# Frontend dependencies
+/frontend/node_modules

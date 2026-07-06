@@ -2,6 +2,8 @@
 
 A minimal C++ NPC generator designed to run entirely inside Docker Compose.
 
+For the long-term vision and planned investigation board architecture, see [ARCHITECTURE.md](ARCHITECTURE.md).
+
 ## Start with Docker Compose
 
 Build and start the container:
@@ -23,7 +25,7 @@ docker compose up --build -d
 Open a shell inside the running container:
 
 ```powershell
-docker compose exec npc-generator sh
+docker compose exec npc-generator bash
 ```
 
 Then compile the project inside the container:
@@ -35,20 +37,33 @@ cmake -S . -B build -D CMAKE_BUILD_TYPE=Release && cmake --build build -j$(nproc
 ## Run the server inside the container
 
 From the same container shell, start the server:
-
 ```sh
 ./build/server
 ```
 
-## See the frontend
+## Run the React frontend
 
-Once the server is running, open your browser to:
+The React + Vite frontend is available as a separate Docker Compose service.
 
-```text
-http://localhost:8080/
+Start both the backend and frontend together:
+
+```bash
+docker compose up --build -d
 ```
 
-That page serves the new occult-style NPC dossier UI. Click the button to generate a new NPC and view its age, race, subrace, sanity points, occupation, clothing, personality, and secret.
+Then open your browser to:
+
+```text
+http://localhost:5173/
+```
+
+The frontend connects to the backend API at `http://localhost:8080` and renders the investigation board.
+
+If you want to start only the frontend service, use:
+
+```bash
+docker compose up --build frontend
+```
 
 If you want to start the server from the host using Docker Compose again, first stop the container and then run:
 

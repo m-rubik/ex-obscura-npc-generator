@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   npc-generator:
     build:
@@ -11,3 +10,14 @@ services:
     volumes:
       - .:/work:cached
     command: ["sleep", "infinity"]
+
+  frontend:
+    image: node:20
+    working_dir: /work/frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/work:cached
+    command: sh -c "cd /work/frontend && npm install && npm run dev -- --host 0.0.0.0"
+    depends_on:
+      - npc-generator

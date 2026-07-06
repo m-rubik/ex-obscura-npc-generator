@@ -5,3 +5,4 @@ build
 *.obj
 *.exe
 *.log
+frontend/node_modules
