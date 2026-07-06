@@ -67,23 +67,11 @@ int main(int argc, char** argv) {
     ctx.dataRoot["names"]["female_first"] = loadData("data/names/female_first.json");
     ctx.dataRoot["names"]["surnames"] = loadData("data/names/surnames.json");
     ctx.dataRoot["clothing"]["details"] = loadData("data/clothing/details.json");
-    ctx.dataRoot["clothing"]["items"] = json::array();
+    ctx.dataRoot["clothing"]["men"] = loadData("data/clothing/men.json");
+    ctx.dataRoot["clothing"]["women"] = loadData("data/clothing/women.json");
     ctx.dataRoot["personalities"] = loadData("data/personalities.json");
     ctx.dataRoot["secrets"] = loadData("data/secrets.json");
     ctx.dataRoot["races"] = loadData("data/races.json");
-
-    auto men = loadData("data/clothing/men.json");
-    auto women = loadData("data/clothing/women.json");
-    if (men.contains("men") && men["men"].is_array()) {
-        for (const auto &item : men["men"]) {
-            ctx.dataRoot["clothing"]["items"].push_back(item);
-        }
-    }
-    if (women.contains("women") && women["women"].is_array()) {
-        for (const auto &item : women["women"]) {
-            ctx.dataRoot["clothing"]["items"].push_back(item);
-        }
-    }
 
     ctx.dataRoot["occupations"] = loadData("data/occupations/occupations.json");
     if (ctx.dataRoot["occupations"].contains("categories")) {

@@ -6,6 +6,8 @@
 #include <vector>
 #include <algorithm>
 
+using json = nlohmann::json;
+
 namespace exob {
 
 void NPCGenerator::generateAge(GenerationContext& ctx) {
@@ -18,32 +20,35 @@ void NPCGenerator::generateAge(GenerationContext& ctx) {
 void NPCGenerator::generateClothing(GenerationContext& ctx) {
     // Clothing generation
     // TODO: Implement gender preference
-    if (ctx.dataRoot.contains("clothing") && ctx.dataRoot["clothing"].contains("items")) {
-        const auto &items = ctx.dataRoot["clothing"]["items"];
-        if (items.is_array() && !items.empty()) {
-            std::vector<std::string> chosenItems;
-            std::uniform_int_distribution<size_t> itemDist(0, items.size() - 1);
-            for (int i = 0; i < 3; ++i) {
-                const auto &selected = items[itemDist(ctx.rng)];
-                std::string name = selected.value("name", "");
-                if (!name.empty()) {
-                    chosenItems.push_back(name);
-                }
+
+    const auto& clothingArray =
+    (ctx.npc.gender == "male")
+        ? ctx.dataRoot["clothing"]["men"]["men"]
+        : ctx.dataRoot["clothing"]["women"]["women"];
+
+    if (clothingArray.is_array() && !clothingArray.empty()) {
+        std::vector<std::string> chosenItems;
+        std::uniform_int_distribution<size_t> itemDist(0, clothingArray.size() - 1);
+        for (int i = 0; i < 3; ++i) {
+            const auto &selected = clothingArray[itemDist(ctx.rng)];
+            std::string name = selected.value("name", "");
+            if (!name.empty()) {
+                chosenItems.push_back(name);
             }
-            if (!chosenItems.empty()) {
-                ctx.npc.clothing.clear();
-                for (const auto &itemName : chosenItems) {
-                    ctx.npc.clothing.push_back({itemName, "", "", ""});
-                }
-                ctx.npc.clothingStyle = chosenItems[0];
-                if (chosenItems.size() > 1) {
-                    ctx.npc.clothingStyle += ", " + chosenItems[1];
-                }
-                if (chosenItems.size() > 2) {
-                    ctx.npc.clothingStyle += " and " + chosenItems[2];
-                }
-                ctx.generationLog.push_back(std::string("Clothing: ") + ctx.npc.clothingStyle);
+        }
+        if (!chosenItems.empty()) {
+            ctx.npc.clothing.clear();
+            for (const auto &itemName : chosenItems) {
+                ctx.npc.clothing.push_back({itemName, "", "", ""});
             }
+            ctx.npc.clothingStyle = chosenItems[0];
+            if (chosenItems.size() > 1) {
+                ctx.npc.clothingStyle += ", " + chosenItems[1];
+            }
+            if (chosenItems.size() > 2) {
+                ctx.npc.clothingStyle += " and " + chosenItems[2];
+            }
+            ctx.generationLog.push_back(std::string("Clothing: ") + ctx.npc.clothingStyle);
         }
     }
 
