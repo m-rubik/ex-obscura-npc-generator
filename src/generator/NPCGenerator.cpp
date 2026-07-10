@@ -112,6 +112,14 @@ void NPCGenerator::generateRace(GenerationContext& ctx) {
                 }
                 if (!subraceMap.weights().empty()) {
                     ctx.npc.subrace = subraceMap.pick(ctx.rng);
+
+                    if (ctx.npc.subrace != "Standard") {
+                        ctx.npc.race_full_str = ctx.npc.race + " (" + ctx.npc.subrace + ")";
+                    }
+                    else
+                    {
+                        ctx.npc.race_full_str = ctx.npc.race;   
+                    }
                 }
             }
             ctx.generationLog.push_back(std::string("Race: ") + ctx.npc.race + (ctx.npc.subrace.empty() ? "" : (" (" + ctx.npc.subrace + ")")));

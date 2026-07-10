@@ -4,7 +4,7 @@ A minimal C++ NPC generator designed to run entirely inside Docker Compose.
 
 ## Start with Docker Compose
 
-Build and start the container:
+Build and start the container (run in the background):
 
 ```bash
 docker compose up --build -d
@@ -14,21 +14,15 @@ This maps host port `8080` to container port `8080`.
 
 ## Compile inside the container
 
-Start the container in the background:
-
-```powershell
-docker compose up --build -d
-```
-
 Open a shell inside the running container:
 
-```powershell
+```bash
 docker compose exec npc-generator bash
 ```
 
 Then compile the project inside the container:
 
-```sh
+```bash
 cmake -S . -B build -D CMAKE_BUILD_TYPE=Release && cmake --build build -j$(nproc)
 ```
 
@@ -36,7 +30,7 @@ cmake -S . -B build -D CMAKE_BUILD_TYPE=Release && cmake --build build -j$(nproc
 
 From the same container shell, start the server:
 
-```sh
+```bash
 ./build/server
 ```
 
@@ -52,7 +46,7 @@ That page serves the new occult-style NPC dossier UI. Click the button to genera
 
 If you want to start the server from the host using Docker Compose again, first stop the container and then run:
 
-```powershell
+```bash
 docker compose up --build
 ```
 
@@ -64,7 +58,6 @@ docker compose up --build
 
 ## Notes
 
-- You do not need bash or make on Windows; use `sh` inside the container.
 - The container source is mounted into `/work`.
 - If port `8080` is in use, change the port mapping in `docker-compose.yml`.
 

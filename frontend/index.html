@@ -144,7 +144,6 @@
           <ul class="stat-list">
             <li><strong>Age:</strong> <span id="npcAge">—</span></li>
             <li><strong>Race:</strong> <span id="npcRace">—</span></li>
-            <li><strong>Subrace:</strong> <span id="npcSubrace">—</span></li>
             <li><strong>Sanity Points:</strong> <span id="npcSanity">—</span></li>
             <li><strong>Occupation:</strong> <span id="npcOccupation">—</span></li>
             <li><strong>Wealth:</strong> <span id="npcWealth">—</span></li>
@@ -198,7 +197,6 @@
       const npcSummary = document.getElementById('npcSummary');
       const npcAge = document.getElementById('npcAge');
       const npcRace = document.getElementById('npcRace');
-      const npcSubrace = document.getElementById('npcSubrace');
       const npcSanity = document.getElementById('npcSanity');
       const npcOccupation = document.getElementById('npcOccupation');
       const npcWealth = document.getElementById('npcWealth');
@@ -222,7 +220,6 @@
           npcSummary.textContent = `A ${data.age || '?'}-year-old figure drawn from the fog.`;
           npcAge.textContent = data.age || '—';
           npcRace.textContent = data.race || '—';
-          npcSubrace.textContent = data.subrace || '—';
           npcSanity.textContent = data.sanity_points || '—';
           npcOccupation.textContent = data.occupation || '—';
           npcWealth.textContent = data.wealth || '—';
