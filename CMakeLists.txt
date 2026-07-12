@@ -16,6 +16,7 @@ FetchContent_MakeAvailable(nlohmann_json)
 add_executable(server
   server/main.cpp
   src/generator/NPCGenerator.cpp
+  src/generator/ClothingGenerator.cpp
   src/generator/IdentityGenerator.cpp
 )
 

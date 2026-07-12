@@ -12,6 +12,26 @@
     {"name": "dark brown", "weight": 1}
   ],
 
+  "muted_tones": [
+    {"name": "faded blue", "weight": 1},
+    {"name": "washed out green", "weight": 1},
+    {"name": "dusty brown", "weight": 1},
+    {"name": "pale yellow", "weight": 1},
+    {"name": "smoke grey", "weight": 1},
+    {"name": "sun-bleached beige", "weight": 1},
+    {"name": "rusted red", "weight": 1}
+  ],
+
+  "rich_colors": [
+    {"name": "deep emerald", "weight": 1},
+    {"name": "royal purple", "weight": 1},
+    {"name": "crimson red", "weight": 1},
+    {"name": "sapphire blue", "weight": 1},
+    {"name": "jet black", "weight": 1},
+    {"name": "wine red", "weight": 1},
+    {"name": "hunter green", "weight": 1}
+  ],
+
   "menswear_core": [
     {"name": "navy", "weight": 1},
     {"name": "midnight blue", "weight": 1},
@@ -48,24 +68,16 @@
     {"name": "diamond", "weight": 1}
   ],
 
-  "muted_tones": [
-    {"name": "faded blue", "weight": 1},
-    {"name": "washed out green", "weight": 1},
-    {"name": "dusty brown", "weight": 1},
-    {"name": "pale yellow", "weight": 1},
-    {"name": "smoke grey", "weight": 1},
-    {"name": "sun-bleached beige", "weight": 1},
-    {"name": "rusted red", "weight": 1}
-  ],
-
-  "rich_colors": [
-    {"name": "deep emerald", "weight": 1},
-    {"name": "royal purple", "weight": 1},
-    {"name": "crimson red", "weight": 1},
-    {"name": "sapphire blue", "weight": 1},
-    {"name": "jet black", "weight": 1},
-    {"name": "wine red", "weight": 1},
-    {"name": "hunter green", "weight": 1}
+  "fabric_materials": [
+    {"name": "wool", "weight": 1},
+    {"name": "cotton", "weight": 1},
+    {"name": "linen", "weight": 1},
+    {"name": "silk", "weight": 1},
+    {"name": "leather", "weight": 1},
+    {"name": "tweed", "weight": 1},
+    {"name": "felt", "weight": 1},
+    {"name": "velvet", "weight": 1},
+    {"name": "satin", "weight": 1}
   ],
 
   "wear_states": [
@@ -81,17 +93,5 @@
     {"name": "oil-stained", "weight": 1},
     {"name": "sun-faded", "weight": 1},
     {"name": "dust-covered", "weight": 1}
-  ],
-
-  "materials": [
-    {"name": "wool", "weight": 1},
-    {"name": "cotton", "weight": 1},
-    {"name": "linen", "weight": 1},
-    {"name": "silk", "weight": 1},
-    {"name": "leather", "weight": 1},
-    {"name": "tweed", "weight": 1},
-    {"name": "felt", "weight": 1},
-    {"name": "velvet", "weight": 1},
-    {"name": "satin", "weight": 1}
   ]
 }

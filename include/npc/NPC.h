@@ -7,8 +7,8 @@ namespace exob {
 struct ClothingItem {
     std::string name;
     std::string slot;
-    std::string location;
-    std::string notes;
+    std::string color;
+    std::string wearState;
 };
 
 struct Personality {

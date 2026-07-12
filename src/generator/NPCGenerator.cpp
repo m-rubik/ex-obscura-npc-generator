@@ -1,5 +1,6 @@
 #include "generator/NPCGenerator.h"
 #include "generator/IdentityGenerator.h"
+#include "generator/ClothingGenerator.h"
 #include "rules/ProbabilityMap.h"
 #include <nlohmann/json.hpp>
 #include <random>
@@ -59,11 +60,6 @@ void NPCGenerator::generateRace(GenerationContext& ctx) {
 }
 
 void NPCGenerator::generateAge(GenerationContext& ctx) {
-    // Age
-    // std::uniform_int_distribution<int> ageDist(18, 70);
-    // ctx.npc.age = ageDist(ctx.rng);
-    // ctx.generationLog.push_back(std::string("Age: ") + std::to_string(ctx.npc.age));
-
     // Age
     const auto& ageData = ctx.dataRoot["age"];
 
@@ -186,66 +182,8 @@ void NPCGenerator::generateOccupation(GenerationContext& ctx) {
 }
 
 void NPCGenerator::generateClothing(GenerationContext& ctx) {
-    // Clothing generation
-    const auto& clothingArray =
-    (ctx.npc.gender == "male")
-        ? ctx.dataRoot["clothing"]["men"]
-        : ctx.dataRoot["clothing"]["women"];
-
-    std::vector<std::string> chosenItems;
-
-    ProbabilityMap clothingHeadMap;
-    for (const auto &entry : clothingArray["head"]) {
-        if (entry.contains("name") && entry.contains("weight")) {
-            clothingHeadMap.add(entry["name"].get<std::string>(), entry["weight"].get<int>());
-        }
-    }
-    if (!clothingHeadMap.weights().empty()) {
-        chosenItems.push_back(clothingHeadMap.pick(ctx.rng));
-    }
-
-    ProbabilityMap clothingBodyMap;
-    for (const auto &entry : clothingArray["body"]) {
-        if (entry.contains("name") && entry.contains("weight")) {
-            clothingBodyMap.add(entry["name"].get<std::string>(), entry["weight"].get<int>());
-        }
-    }
-    if (!clothingBodyMap.weights().empty()) {
-        chosenItems.push_back(clothingBodyMap.pick(ctx.rng));
-    }
-
-    ProbabilityMap clothingAccessoryMap;
-    for (const auto &entry : clothingArray["accessory"]) {
-        if (entry.contains("name") && entry.contains("weight")) {
-            clothingAccessoryMap.add(entry["name"].get<std::string>(), entry["weight"].get<int>());
-        }
-    }
-    if (!clothingAccessoryMap.weights().empty()) {
-        chosenItems.push_back(clothingAccessoryMap.pick(ctx.rng));
-    }
-    
-    if (!chosenItems.empty()) {
-        ctx.npc.clothing.clear();
-        for (const auto &itemName : chosenItems) {
-            ctx.npc.clothing.push_back({itemName, "", "", ""});
-        }
-        ctx.npc.clothingStyle = chosenItems[0];
-        if (chosenItems.size() > 1) {
-            ctx.npc.clothingStyle += ", " + chosenItems[1];
-        }
-        if (chosenItems.size() > 2) {
-            ctx.npc.clothingStyle += " and " + chosenItems[2];
-        }
-        ctx.generationLog.push_back(std::string("Clothing: ") + ctx.npc.clothingStyle);
-    }
-
-    // if (ctx.dataRoot.contains("clothing") && ctx.dataRoot["clothing"].contains("details")) {
-    //     const auto &details = ctx.dataRoot["clothing"]["details"];
-    //     if (details.contains("materials") && details["materials"].is_array()) {
-    //         std::uniform_int_distribution<size_t> matDist(0, details["materials"].size() - 1);
-    //         ctx.npc.clothingStyle += " in " + details["materials"][matDist(ctx.rng)].get<std::string>();
-    //     }
-    // }
+    ClothingGenerator clothingGenerator = ClothingGenerator();
+    clothingGenerator.generate(ctx);
 }
 
 void NPCGenerator::generateSanity(GenerationContext& ctx) {
@@ -347,23 +285,6 @@ void NPCGenerator::generateWealth(GenerationContext& ctx) {
 
 NPC NPCGenerator::generate(GenerationContext& ctx) {
     /*
-        BUG:
-        Generation trace:
-        Identity: chosen name Maxwell Leavitt
-        Race: Halfling (Lightfoot)
-        Age: 69
-        Occupation category:
-        Occupation table missing:
-        Wealth Level: Poor
-        Clothing: Homburg, Dress shirt with sack coat and Belt
-        Personality: Core=curious Social=authoritative Emotional=sentimental
-        Occult Sensitivity: dismissive of occult
-        Secret: is secretly in love with someone inappropriate
-        Sanity Points: 57
-
-        How is occupation category blank?
-    */
-    /*
     IDEAS:
     - Friends
     - Family
@@ -373,32 +294,50 @@ NPC NPCGenerator::generate(GenerationContext& ctx) {
     - Stats?
     - Notable physical things like tattoos
     - Items of note (pocketwatch, weapon, etc)
+
+    TODO:
+    - I have the main template down for Age modifying Occupation, but generating
+    the full mapping is an exhaustive process, that would be best suited for AI.
     */
     
-    // First, we generate the base of their identiy, which composes of:
-    // 1. Gender
-    // 2. Name
+    // First, we generate the base of their identiy.
+    // Gender
+    // MODIFIED BY:
+    // MODIFIES: Name, Clothing
+    // 
+    // Name
+    // MODIFIED BY: Gender
+    // MODIFIES:
     IdentityGenerator idg;
     idg.generate(ctx);
 
     generateRace(ctx);
 
-    // Next most critical part to determine is their age, as this will factor into their occupation and other aspects.
+    // Age
+    // MODIFIED BY: 
+    // MODIFIES: Occupation, Wealth
     generateAge(ctx);
     
-    // Next, we choose their occupation, as this will influence their clothing and other aspects of their identity.
+    // Occupation
+    // MODIFIED BY: Age
+    // MODIFIES: Wealth
     generateOccupation(ctx);
 
-    // Next, we generate their wealth level, as this is heavily tied to their occupation, will influence their clothing, etc.
-    // Note however, just because a person works as a lowly laborer, doesn't mean that they can't come from wealth.
+    // Wealth
+    // MODIFIED BY: Occupation, Age
     generateWealth(ctx);
 
-    // Now, given the aspects generated above, we can generate their clothing.
+    // Clothing
+    // MODIFIED BY: Gender, Wealth
+    // MODIFIES:
     generateClothing(ctx);
 
     generatePersonality(ctx);
     generateSecret(ctx);
 
+    // Sanity
+    // MODIFIED BY:
+    // MODIFIES: 
     generateSanity(ctx);
 
     return ctx.npc;
