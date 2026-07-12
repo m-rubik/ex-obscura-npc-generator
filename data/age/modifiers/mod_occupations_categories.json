@@ -1,0 +1,74 @@
+{
+  "teenager": {
+    "Academic":        { "modifier": 1 },
+    "Agriculture":     { "modifier": 1 },
+    "Armed Services":  { "modifier": 1 },
+    "Clerical":        { "modifier": 1 },
+    "Entertainer":     { "modifier": 1 },
+    "Factory":         { "modifier": 1 },
+    "Laborer":         { "modifier": 1 },
+    "Professional":    { "modifier": 1 },
+    "Services":        { "modifier": 1 },
+    "Underworld":      { "modifier": 1 }
+  },
+  "college": {
+    "Academic":        { "modifier": 1 },
+    "Agriculture":     { "modifier": 1 },
+    "Armed Services":  { "modifier": 1 },
+    "Clerical":        { "modifier": 1 },
+    "Entertainer":     { "modifier": 1 },
+    "Factory":         { "modifier": 1 },
+    "Laborer":         { "modifier": 1 },
+    "Professional":    { "modifier": 1 },
+    "Services":        { "modifier": 1 },
+    "Underworld":      { "modifier": 1 }
+  },
+  "young_adult": {
+    "Academic":        { "modifier": 1 },
+    "Agriculture":     { "modifier": 1 },
+    "Armed Services":  { "modifier": 1 },
+    "Clerical":        { "modifier": 1 },
+    "Entertainer":     { "modifier": 1 },
+    "Factory":         { "modifier": 1 },
+    "Laborer":         { "modifier": 1 },
+    "Professional":    { "modifier": 1 },
+    "Services":        { "modifier": 1 },
+    "Underworld":      { "modifier": 1 }
+  },
+  "adult": {
+    "Academic":        { "modifier": 1 },
+    "Agriculture":     { "modifier": 1 },
+    "Armed Services":  { "modifier": 1 },
+    "Clerical":        { "modifier": 1 },
+    "Entertainer":     { "modifier": 1 },
+    "Factory":         { "modifier": 1 },
+    "Laborer":         { "modifier": 1 },
+    "Professional":    { "modifier": 1 },
+    "Services":        { "modifier": 1 },
+    "Underworld":      { "modifier": 1 }
+  },
+  "middle_aged": {
+    "Academic":        { "modifier": 1 },
+    "Agriculture":     { "modifier": 1 },
+    "Armed Services":  { "modifier": 1 },
+    "Clerical":        { "modifier": 1 },
+    "Entertainer":     { "modifier": 1 },
+    "Factory":         { "modifier": 1 },
+    "Laborer":         { "modifier": 1 },
+    "Professional":    { "modifier": 1 },
+    "Services":        { "modifier": 1 },
+    "Underworld":      { "modifier": 1 }
+  },
+  "senior": {
+    "Academic":        { "modifier": 1 },
+    "Agriculture":     { "modifier": 1 },
+    "Armed Services":  { "modifier": 1 },
+    "Clerical":        { "modifier": 1 },
+    "Entertainer":     { "modifier": 1 },
+    "Factory":         { "modifier": 1 },
+    "Laborer":         { "modifier": 1 },
+    "Professional":    { "modifier": 1 },
+    "Services":        { "modifier": 1 },
+    "Underworld":      { "modifier": 1 }
+  }
+}

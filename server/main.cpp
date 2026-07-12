@@ -63,6 +63,8 @@ static void send_html_response(int client_fd, const std::string& body) {
 
 int main(int argc, char** argv) {
     GenerationContext ctx;
+
+    // Load all context files into ctx dataRoot
     ctx.dataRoot["names"]["male_first"] = loadData("data/names/male_first.json");
     ctx.dataRoot["names"]["female_first"] = loadData("data/names/female_first.json");
     ctx.dataRoot["names"]["surnames"] = loadData("data/names/surnames.json");
@@ -73,7 +75,7 @@ int main(int argc, char** argv) {
     ctx.dataRoot["secrets"] = loadData("data/secrets.json");
     ctx.dataRoot["races"] = loadData("data/races.json");
     ctx.dataRoot["wealth"] = loadData("data/wealth.json");
-    ctx.dataRoot["age"] = loadData("data/age.json");
+    ctx.dataRoot["age"] = loadData("data/age/age.json");
     ctx.dataRoot["occupations"] = loadData("data/occupations/occupations.json");
     if (ctx.dataRoot["occupations"].contains("categories")) {
         for (auto &category : ctx.dataRoot["occupations"]["categories"]) {
@@ -86,6 +88,10 @@ int main(int argc, char** argv) {
             }
         }
     }
+
+    // Load all modifier files
+    ctx.dataRoot["modifiers"]["age"]["occupations_categories"] = loadData("data/age/modifiers/mod_occupations_categories.json");
+    ctx.dataRoot["modifiers"]["age"]["occupations"] = loadData("data/age/modifiers/mod_occupations.json");
 
     int server_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (server_fd == -1) { perror("socket"); return 1; }

@@ -24,6 +24,7 @@ struct NPC {
     std::string name;
     std::string occupation;
     int age = 0;
+    std::string ageCategory;
     std::string gender;
     std::string race;
     std::string subrace;

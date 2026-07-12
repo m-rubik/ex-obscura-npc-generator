@@ -5,10 +5,58 @@
 #include <random>
 #include <vector>
 #include <algorithm>
+#include <iostream>
 
 using json = nlohmann::json;
 
 namespace exob {
+
+void NPCGenerator::generateRace(GenerationContext& ctx) {
+    // Race generation
+    if (ctx.dataRoot.contains("races")) {
+        const auto &races = ctx.dataRoot["races"];
+        ProbabilityMap raceMap;
+        std::unordered_map<std::string, std::unordered_map<std::string, int>> subraceWeights;
+
+        for (auto it = races.begin(); it != races.end(); ++it) {
+            const std::string raceName = it.key();
+            const auto &entry = it.value();
+            if (entry.contains("weight") && entry["weight"].is_number_integer()) {
+                raceMap.add(raceName, entry["weight"].get<int>());
+            }
+            if (entry.contains("subraces") && entry["subraces"].is_object()) {
+                std::unordered_map<std::string, int> subs;
+                for (auto subIt = entry["subraces"].begin(); subIt != entry["subraces"].end(); ++subIt) {
+                    subs[subIt.key()] = subIt.value().get<int>();
+                }
+                subraceWeights[raceName] = subs;
+            }
+        }
+
+        if (!raceMap.weights().empty()) {
+            std::string chosenRace = raceMap.pick(ctx.rng);
+            ctx.npc.race = chosenRace;
+            if (subraceWeights.count(chosenRace)) {
+                ProbabilityMap subraceMap;
+                for (const auto &sub : subraceWeights[chosenRace]) {
+                    subraceMap.add(sub.first, sub.second);
+                }
+                if (!subraceMap.weights().empty()) {
+                    ctx.npc.subrace = subraceMap.pick(ctx.rng);
+
+                    if (ctx.npc.subrace != "Standard") {
+                        ctx.npc.race_full_str = ctx.npc.race + " (" + ctx.npc.subrace + ")";
+                    }
+                    else
+                    {
+                        ctx.npc.race_full_str = ctx.npc.race;   
+                    }
+                }
+            }
+            ctx.generationLog.push_back(std::string("Race: ") + ctx.npc.race + (ctx.npc.subrace.empty() ? "" : (" (" + ctx.npc.subrace + ")")));
+        }
+    }
+}
 
 void NPCGenerator::generateAge(GenerationContext& ctx) {
     // Age
@@ -27,8 +75,108 @@ void NPCGenerator::generateAge(GenerationContext& ctx) {
     }
 
     ctx.npc.age = std::stoi(ageMap.pick(ctx.rng));
+
+    // Age Categories: need to define this somewhere better
+    if (ctx.npc.age >= 16 && ctx.npc.age <= 17) {
+        ctx.npc.ageCategory = "teenager";
+    } else if (ctx.npc.age >= 18 && ctx.npc.age <= 22) {
+        ctx.npc.ageCategory = "college";
+    } else if (ctx.npc.age >= 23 && ctx.npc.age <= 30) {
+        ctx.npc.ageCategory = "young_adult";
+    } else if (ctx.npc.age >= 31 && ctx.npc.age <= 50) {
+        ctx.npc.ageCategory = "adult";
+    } else if (ctx.npc.age >= 51 && ctx.npc.age <= 65) {
+        ctx.npc.ageCategory = "middle_aged";
+    } else if (ctx.npc.age >= 66 && ctx.npc.age <= 80) {
+        ctx.npc.ageCategory = "senior";
+    }
+
     ctx.generationLog.push_back(std::string("Age: ") + std::to_string(ctx.npc.age));
 
+}
+
+void NPCGenerator::generateOccupation(GenerationContext& ctx) {
+    // Occupation - select a main category first, then roll a job from the category's subtable
+    if (ctx.dataRoot.contains("occupations") && ctx.dataRoot["occupations"].contains("categories")) {
+        ProbabilityMap categoryMap;
+        std::unordered_map<std::string, std::string> tableByCategory;
+        for (auto &cat : ctx.dataRoot["occupations"]["categories"]) {
+            std::string name = cat.value("name", "");
+            int weight = cat.value("weight", 1);
+            std::string table = cat.value("table", "");
+            
+            // Load age modifiers to occupations category
+            int modifier = 1;
+            const auto& ageCategories = ctx.dataRoot["modifiers"]["age"]["occupations_categories"][ctx.npc.ageCategory];
+            if (ageCategories.contains(name) &&
+                ageCategories[name].contains("modifier"))
+            {
+                modifier = ageCategories[name]["modifier"].get<int>();
+            }
+            weight *= modifier;
+
+            if (!name.empty() && !table.empty()) {
+                categoryMap.add(name, weight);
+                tableByCategory[name] = table;
+            }
+        }
+
+        if (!categoryMap.weights().empty()) {
+            std::string chosenCategory = categoryMap.pick(ctx.rng);
+            std::string tableName = tableByCategory[chosenCategory];
+            ctx.generationLog.push_back(std::string("Occupation category: ") + chosenCategory);
+
+            if (ctx.dataRoot["occupations"].contains("tables") && ctx.dataRoot["occupations"]["tables"].contains(tableName)) {
+                auto &tableJson = ctx.dataRoot["occupations"]["tables"][tableName];
+                ProbabilityMap jobMap;
+                if (tableJson.contains("jobs") && tableJson["jobs"].is_array()) {
+                    for (auto &job : tableJson["jobs"]) {
+                        std::string name = job.value("name", "");
+                        int weight = job.value("weight", 1);
+
+                        // Apply age modifier to job weight
+                        int modifier = 1;
+                        const auto& ageCategories = ctx.dataRoot["modifiers"]["age"]["occupations"][ctx.npc.ageCategory];
+                        if (ageCategories.contains(chosenCategory) &&
+                            ageCategories[name].contains("modifier"))
+                        {
+                            modifier = ageCategories[name]["modifier"].get<int>();
+                        }
+                        weight *= modifier;
+
+                        if (!name.empty()) {
+                            jobMap.add(name, weight);
+                        }
+                    }
+                }
+                if (!jobMap.weights().empty()) {
+                    ctx.npc.occupation = jobMap.pick(ctx.rng);
+                    ctx.generationLog.push_back(std::string("Occupation: ") + ctx.npc.occupation);
+                } else {
+                    ctx.generationLog.push_back("Occupation subtable loaded but jobs were empty");
+                }
+            } else {
+                ctx.generationLog.push_back(std::string("Occupation table missing: ") + tableName);
+            }
+        }
+    }
+    // fallback for old flat occupations list
+    else {
+        ProbabilityMap pm;
+        if (ctx.dataRoot.contains("occupations") && ctx.dataRoot["occupations"].is_array()) {
+            for (auto &o : ctx.dataRoot["occupations"]) {
+                std::string name = o.value("name", "");
+                int weight = o.value("weight", 1);
+                if (!name.empty()) {
+                    pm.add(name, weight);
+                }
+            }
+        }
+        if (!pm.weights().empty()) {
+            ctx.npc.occupation = pm.pick(ctx.rng);
+            ctx.generationLog.push_back(std::string("Occupation: ") + ctx.npc.occupation);
+        }
+    }
 }
 
 void NPCGenerator::generateClothing(GenerationContext& ctx) {
@@ -92,53 +240,6 @@ void NPCGenerator::generateClothing(GenerationContext& ctx) {
     //         ctx.npc.clothingStyle += " in " + details["materials"][matDist(ctx.rng)].get<std::string>();
     //     }
     // }
-}
-
-void NPCGenerator::generateRace(GenerationContext& ctx) {
-    // Race generation
-    if (ctx.dataRoot.contains("races")) {
-        const auto &races = ctx.dataRoot["races"];
-        ProbabilityMap raceMap;
-        std::unordered_map<std::string, std::unordered_map<std::string, int>> subraceWeights;
-
-        for (auto it = races.begin(); it != races.end(); ++it) {
-            const std::string raceName = it.key();
-            const auto &entry = it.value();
-            if (entry.contains("weight") && entry["weight"].is_number_integer()) {
-                raceMap.add(raceName, entry["weight"].get<int>());
-            }
-            if (entry.contains("subraces") && entry["subraces"].is_object()) {
-                std::unordered_map<std::string, int> subs;
-                for (auto subIt = entry["subraces"].begin(); subIt != entry["subraces"].end(); ++subIt) {
-                    subs[subIt.key()] = subIt.value().get<int>();
-                }
-                subraceWeights[raceName] = subs;
-            }
-        }
-
-        if (!raceMap.weights().empty()) {
-            std::string chosenRace = raceMap.pick(ctx.rng);
-            ctx.npc.race = chosenRace;
-            if (subraceWeights.count(chosenRace)) {
-                ProbabilityMap subraceMap;
-                for (const auto &sub : subraceWeights[chosenRace]) {
-                    subraceMap.add(sub.first, sub.second);
-                }
-                if (!subraceMap.weights().empty()) {
-                    ctx.npc.subrace = subraceMap.pick(ctx.rng);
-
-                    if (ctx.npc.subrace != "Standard") {
-                        ctx.npc.race_full_str = ctx.npc.race + " (" + ctx.npc.subrace + ")";
-                    }
-                    else
-                    {
-                        ctx.npc.race_full_str = ctx.npc.race;   
-                    }
-                }
-            }
-            ctx.generationLog.push_back(std::string("Race: ") + ctx.npc.race + (ctx.npc.subrace.empty() ? "" : (" (" + ctx.npc.subrace + ")")));
-        }
-    }
 }
 
 void NPCGenerator::generateSanity(GenerationContext& ctx) {
@@ -218,68 +319,6 @@ void NPCGenerator::generateSecret(GenerationContext& ctx) {
             std::uniform_int_distribution<size_t> secretDist(0, secretPools.size() - 1);
             ctx.npc.secret = secretPools[secretDist(ctx.rng)];
             ctx.generationLog.push_back(std::string("Secret: ") + ctx.npc.secret);
-        }
-    }
-}
-
-void NPCGenerator::generateOccupation(GenerationContext& ctx) {
-    // Occupation - select a main category first, then roll a job from the category's subtable
-    if (ctx.dataRoot.contains("occupations") && ctx.dataRoot["occupations"].contains("categories")) {
-        ProbabilityMap categoryMap;
-        std::unordered_map<std::string, std::string> tableByCategory;
-        for (auto &cat : ctx.dataRoot["occupations"]["categories"]) {
-            std::string name = cat.value("name", "");
-            int weight = cat.value("weight", 1);
-            std::string table = cat.value("table", "");
-            if (!name.empty() && !table.empty()) {
-                categoryMap.add(name, weight);
-                tableByCategory[name] = table;
-            }
-        }
-
-        if (!categoryMap.weights().empty()) {
-            std::string chosenCategory = categoryMap.pick(ctx.rng);
-            std::string tableName = tableByCategory[chosenCategory];
-            ctx.generationLog.push_back(std::string("Occupation category: ") + chosenCategory);
-
-            if (ctx.dataRoot["occupations"].contains("tables") && ctx.dataRoot["occupations"]["tables"].contains(tableName)) {
-                auto &tableJson = ctx.dataRoot["occupations"]["tables"][tableName];
-                ProbabilityMap jobMap;
-                if (tableJson.contains("jobs") && tableJson["jobs"].is_array()) {
-                    for (auto &job : tableJson["jobs"]) {
-                        std::string name = job.value("name", "");
-                        int weight = job.value("weight", 1);
-                        if (!name.empty()) {
-                            jobMap.add(name, weight);
-                        }
-                    }
-                }
-                if (!jobMap.weights().empty()) {
-                    ctx.npc.occupation = jobMap.pick(ctx.rng);
-                    ctx.generationLog.push_back(std::string("Occupation: ") + ctx.npc.occupation);
-                } else {
-                    ctx.generationLog.push_back("Occupation subtable loaded but jobs were empty");
-                }
-            } else {
-                ctx.generationLog.push_back(std::string("Occupation table missing: ") + tableName);
-            }
-        }
-    }
-    // fallback for old flat occupations list
-    else {
-        ProbabilityMap pm;
-        if (ctx.dataRoot.contains("occupations") && ctx.dataRoot["occupations"].is_array()) {
-            for (auto &o : ctx.dataRoot["occupations"]) {
-                std::string name = o.value("name", "");
-                int weight = o.value("weight", 1);
-                if (!name.empty()) {
-                    pm.add(name, weight);
-                }
-            }
-        }
-        if (!pm.weights().empty()) {
-            ctx.npc.occupation = pm.pick(ctx.rng);
-            ctx.generationLog.push_back(std::string("Occupation: ") + ctx.npc.occupation);
         }
     }
 }

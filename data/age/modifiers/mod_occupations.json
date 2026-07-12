@@ -1,0 +1,50 @@
+{
+  "teenager": {
+    "Academic": {
+      "College Student": {"modifier": 0.05},
+      "College Professor": {"modifier": 0},
+      "Research Assistant": {"modifier": 0.02},
+      "Librarian": {"modifier": 0}
+    }
+  },
+  "college": {
+    "Academic": {
+      "College Student": {"modifier": 1.5},
+      "College Professor": {"modifier": 0.01},
+      "Research Assistant": {"modifier": 1.1},
+      "Librarian": {"modifier": 0.05}
+    }
+  },
+  "young_adult": {
+    "Academic": {
+      "College Student": {"modifier": 0.35},
+      "College Professor": {"modifier": 1.5},
+      "Research Assistant": {"modifier": 1.2},
+      "Librarian": {"modifier": 0.8}
+    }
+  },
+  "adult": {
+    "Academic": {
+      "College Student": {"modifier": 0.15},
+      "College Professor": {"modifier": 1.5},
+      "Research Assistant": {"modifier": 1.6},
+      "Librarian": {"modifier": 1.2}
+    }
+  },
+  "middle_aged": {
+    "Academic": {
+      "College Student": {"modifier": 0.05},
+      "College Professor": {"modifier": 1.5},
+      "Research Assistant": {"modifier": 1.4},
+      "Librarian": {"modifier": 1.7}
+    }
+  },
+  "senior": {
+    "Academic": {
+      "College Student": {"modifier": 0.01},
+      "College Professor": {"modifier": 1.6},
+      "Research Assistant": {"modifier": 0.5},
+      "Librarian": {"modifier": 1.8}
+    }
+  }
+}
