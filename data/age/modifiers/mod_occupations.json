@@ -5,6 +5,13 @@
       "College Professor": {"modifier": 0},
       "Research Assistant": {"modifier": 0.02},
       "Librarian": {"modifier": 0}
+    },
+    "Entertainer": {
+      "Stripper": {"modifier": 0}
+    },
+    "Underworld": {
+      "Stripper": {"modifier": 0},
+      "Prostitute": {"modifier": 0}
     }
   },
   "college": {
@@ -45,6 +52,13 @@
       "College Professor": {"modifier": 1.6},
       "Research Assistant": {"modifier": 0.5},
       "Librarian": {"modifier": 1.8}
+    },
+    "Entertainer": {
+      "Stripper": {"modifier": 0}
+    },
+    "Underworld": {
+      "Stripper": {"modifier": 0},
+      "Prostitute": {"modifier": 0}
     }
   }
 }
