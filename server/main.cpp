@@ -92,6 +92,7 @@ int main(int argc, char** argv) {
     // Load all modifier files
     ctx.dataRoot["modifiers"]["age"]["occupations_categories"] = loadData("data/age/modifiers/mod_occupations_categories.json");
     ctx.dataRoot["modifiers"]["age"]["occupations"] = loadData("data/age/modifiers/mod_occupations.json");
+    ctx.dataRoot["modifiers"]["age"]["wealth"] = loadData("data/age/modifiers/mod_wealth.json");
 
     int server_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (server_fd == -1) { perror("socket"); return 1; }

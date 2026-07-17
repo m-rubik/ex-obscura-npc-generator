@@ -251,17 +251,25 @@ void NPCGenerator::generatePersonality(GenerationContext& ctx) {
 void NPCGenerator::generateSecret(GenerationContext& ctx) {
     if (ctx.dataRoot.contains("secrets")) {
         const auto &secrets = ctx.dataRoot["secrets"];
-        std::vector<std::string> secretPools;
+
+        ProbabilityMap secretsMap;
         for (const auto &key : {"harmless_secrets", "social_secrets", "criminal_secrets", "occult_secrets", "identity_secrets"}) {
             if (secrets.contains(key) && secrets[key].is_array()) {
                 for (const auto &secret : secrets[key]) {
-                    secretPools.push_back(secret.get<std::string>());
+                    if (secret.contains("description") && secret.contains("weight")) {
+                        std::string description = secret.value("description", "");
+                        int weight = secret.value("weight", 1);
+                        if (!description.empty()) {
+                            secretsMap.add(description, weight);
+                        }
+                    }
                 }
             }
         }
-        if (!secretPools.empty()) {
-            std::uniform_int_distribution<size_t> secretDist(0, secretPools.size() - 1);
-            ctx.npc.secret = secretPools[secretDist(ctx.rng)];
+
+        if (!secretsMap.weights().empty()) {
+            std::string chosenSecret = secretsMap.pick(ctx.rng);
+            ctx.npc.secret = chosenSecret;
             ctx.generationLog.push_back(std::string("Secret: ") + ctx.npc.secret);
         }
     }
@@ -272,7 +280,23 @@ void NPCGenerator::generateWealth(GenerationContext& ctx) {
         ProbabilityMap wealthMap;
         for (const auto &entry : ctx.dataRoot["wealth"]["level"]) {
             if (entry.contains("name") && entry.contains("weight")) {
-                wealthMap.add(entry["name"].get<std::string>(), entry["weight"].get<int>());
+
+                std::string name = entry.value("name", "");
+                int weight = entry.value("weight", 1);
+
+                 // Load age modifiers to wealth category
+                double modifier = 1;
+                const auto& ageCategories = ctx.dataRoot["modifiers"]["age"]["wealth"][ctx.npc.ageCategory];
+                if (ageCategories.contains(name) &&
+                    ageCategories[name].contains("modifier"))
+                {
+                    modifier = ageCategories[name]["modifier"].get<double>();
+                }
+                weight *= modifier;
+
+                if (!name.empty()) {
+                    wealthMap.add(name, weight);
+                }
             }
         }
         if (!wealthMap.weights().empty()) {
@@ -332,7 +356,14 @@ NPC NPCGenerator::generate(GenerationContext& ctx) {
     // MODIFIES:
     generateClothing(ctx);
 
+    // Personality
+    // MODIFIED BY:
+    // MODIFIES: Secret
     generatePersonality(ctx);
+
+    // Secret
+    // MODIFIED BY: Personality
+    // MODIFIES:
     generateSecret(ctx);
 
     // Sanity

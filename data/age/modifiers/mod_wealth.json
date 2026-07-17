@@ -1,0 +1,55 @@
+{
+  "teenager": {
+    "Destitute":       { "modifier": 1.40 },
+    "Poor":            { "modifier": 1.30 },
+    "Average":         { "modifier": 0.90 },
+    "Wealthy":         { "modifier": 0.35 },
+    "Rich":            { "modifier": 0.10 },
+    "Incredibly Rich": { "modifier": 0.03 }
+  },
+
+  "college": {
+    "Destitute":       { "modifier": 1.20 },
+    "Poor":            { "modifier": 1.40 },
+    "Average":         { "modifier": 1.00 },
+    "Wealthy":         { "modifier": 0.60 },
+    "Rich":            { "modifier": 0.25 },
+    "Incredibly Rich": { "modifier": 0.08 }
+  },
+
+  "young_adult": {
+    "Destitute":       { "modifier": 1.05 },
+    "Poor":            { "modifier": 1.15 },
+    "Average":         { "modifier": 1.15 },
+    "Wealthy":         { "modifier": 0.85 },
+    "Rich":            { "modifier": 0.60 },
+    "Incredibly Rich": { "modifier": 0.30 }
+  },
+
+  "adult": {
+    "Destitute":       { "modifier": 1.00 },
+    "Poor":            { "modifier": 1.00 },
+    "Average":         { "modifier": 1.00 },
+    "Wealthy":         { "modifier": 1.00 },
+    "Rich":            { "modifier": 1.00 },
+    "Incredibly Rich": { "modifier": 1.00 }
+  },
+
+  "middle_aged": {
+    "Destitute":       { "modifier": 0.80 },
+    "Poor":            { "modifier": 0.90 },
+    "Average":         { "modifier": 1.00 },
+    "Wealthy":         { "modifier": 1.30 },
+    "Rich":            { "modifier": 1.55 },
+    "Incredibly Rich": { "modifier": 1.75 }
+  },
+
+  "senior": {
+    "Destitute":       { "modifier": 0.90 },
+    "Poor":            { "modifier": 1.00 },
+    "Average":         { "modifier": 1.10 },
+    "Wealthy":         { "modifier": 1.25 },
+    "Rich":            { "modifier": 1.35 },
+    "Incredibly Rich": { "modifier": 1.20 }
+  }
+}
